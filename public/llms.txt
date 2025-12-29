@@ -1,0 +1,14 @@
+## Pages
+- [About This App - Platform Overview | Citation Nation](/aboutthisapp): Overview of the Citation Nation platform technology, AI capabilities, and value proposition for investors and partners.
+- [About Us - Citation Nation](/about): Learn about Citation Nation
+- [Case Intake - Citation Nation](/intake): Provide details about your traffic ticket to generate a custom defense strategy.
+- [Chat with  - Citation Nation](/attorneychat): No description available
+- [Citation Nation - AI-Powered Traffic Ticket Defense | Save Money & Points](/home): Fight traffic tickets with AI-powered analysis. Get instant defense strategies, reduce fines by up to 80%, and protect your driving record. 95% success rate.
+- [How It Works - Citation Nation](/howitworks): Learn how Citation Nation
+- [Legal Disclaimer - Citation Nation](/legaldisclaimer): Important legal information and disclaimers about Citation Nation
+- [Quick Tips & Free Advice - Citation Nation](/quicktips): Free traffic court tips and advice. Learn what to bring to court, how to read your ticket, and understand the process.
+- [Representation Confirmed - Citation Nation](/lawyerconfirmation): No description available
+- [Select Defense Plan - Citation Nation](/pricing): Choose your defense strategy. Affordable AI-powered plans or full legal representation.
+- [Track Your Ticket - Citation Nation](/tracker): Check the real-time status of your traffic ticket case.
+- [Traffic Defense Resources - Citation Nation](/resources): Comprehensive guide to fighting Florida traffic tickets. Learn about laws, points system, court processes, and calculate your potential savings.
+- [Your Defense Strategy - Citation Nation](/confirmation): View and download your AI-generated traffic ticket defense strategy.
