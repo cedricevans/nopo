@@ -113,6 +113,13 @@ const Confirmation = () => {
             </motion.div>
           </div>
 
+          <div className="bg-white/5 border border-white/10 rounded-xl p-5 mb-6 text-sm text-white/70 print:hidden">
+            <p>
+              This strategy is informational and AI-generated. When available, a licensed attorney may review it as a quality check,
+              but you are not hiring a lawyer unless you separately retain one. Results vary, and you assume all risk in using this information.
+            </p>
+          </div>
+
           <motion.div 
             initial={{ y: 20, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
