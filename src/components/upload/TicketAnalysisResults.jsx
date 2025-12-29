@@ -62,10 +62,16 @@ const TicketAnalysisResults = ({ analysis, ticketFile, onReset }) => {
 
   const handleLawyerFlow = () => {
     const caseData = normalizeCaseData(data);
+    const hasPreferredCity = nearestCity && nearestCity.name && nearestCity.name !== 'your area';
     // Navigate to lawyer matching with the case data
     navigate('/lawyer-matching', { 
       state: { 
-        caseData,
+        caseData: {
+          ...caseData,
+          ...(hasPreferredCity
+            ? { preferredCity: nearestCity.name, preferredState: nearestCity.state || '' }
+            : {})
+        },
         ticketImage: data.ticketImage || null,
         flow: 'lawyer-match'
       } 

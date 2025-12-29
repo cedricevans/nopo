@@ -51,6 +51,11 @@ const LawyerMatching = () => {
   const navigate = useNavigate();
   const { toast } = useToast();
   const { caseData } = location.state || {};
+  const preferredCity = caseData?.preferredCity;
+  const preferredState = caseData?.preferredState;
+  const preferredArea = preferredCity
+    ? `${preferredCity}${preferredState ? `, ${preferredState}` : ''}`
+    : null;
 
   const handleHire = (lawyer) => {
     toast({
@@ -105,7 +110,11 @@ const LawyerMatching = () => {
             </h1>
             <p className="text-white/70 max-w-2xl mx-auto">
               Skip the AI strategy and work directly with a vetted professional.
-              {caseData && <span className="block mt-2 text-[#C6FF4D]">Showing attorneys near {caseData.city || 'your area'}</span>}
+              {caseData && (
+                <span className="block mt-2 text-[#C6FF4D]">
+                  Showing attorneys near {preferredArea || caseData.city || 'your area'}
+                </span>
+              )}
             </p>
           </div>
 
@@ -134,7 +143,7 @@ const LawyerMatching = () => {
                 <div className="space-y-3 mb-6 flex-grow">
                    <div className="flex items-center text-sm text-white/70">
                       <MapPin className="w-4 h-4 mr-2 text-[#007BFF]" />
-                      {lawyer.location}
+                      {preferredArea || lawyer.location}
                    </div>
                    <div className="flex items-center text-sm text-white/70">
                       <Shield className="w-4 h-4 mr-2 text-[#007BFF]" />
