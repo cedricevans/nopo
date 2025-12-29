@@ -208,7 +208,11 @@ const TicketAnalysisResults = ({ analysis, ticketFile, onReset }) => {
             disabled={locationStatus === 'locating'}
             className="bg-[#007BFF] text-white hover:bg-[#007BFF]/90"
           >
-            {locationStatus === 'locating' ? 'Locating...' : 'Use my location'}
+            {locationStatus === 'locating'
+              ? 'Locating...'
+              : nearestCity
+              ? `Find attorneys in ${nearestCity.name}`
+              : 'Use my location'}
           </Button>
           <button
             type="button"
