@@ -54,6 +54,7 @@ function App() {
             <Route path="/lawyer-matching" element={<LawyerMatching />} />
             <Route path="/lawyer-confirmation" element={<LawyerConfirmation />} />
             <Route path="/attorney-chat" element={<AttorneyChat />} />
+            <Route path="*" element={<Home />} />
           </Routes>
         </div>
         
