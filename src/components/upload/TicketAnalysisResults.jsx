@@ -1,5 +1,5 @@
 
-import React from 'react';
+import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import { ArrowRight, RefreshCw, Scale, Sparkles, FileSearch, Gavel } from 'lucide-react';
@@ -13,6 +13,8 @@ import { useNavigate } from 'react-router-dom';
  */
 const TicketAnalysisResults = ({ analysis, ticketFile, onReset }) => {
   const navigate = useNavigate();
+  const [locationStatus, setLocationStatus] = useState('idle');
+  const [nearestCity, setNearestCity] = useState(null);
 
   // Use passed analysis or fallback to default structure if missing (safeguard)
   const data = analysis || {
@@ -70,6 +72,76 @@ const TicketAnalysisResults = ({ analysis, ticketFile, onReset }) => {
     });
   };
 
+  const floridaCities = [
+    { name: 'Jacksonville', state: 'FL', lat: 30.3322, lon: -81.6557 },
+    { name: 'Palm Beach', state: 'FL', lat: 26.7056, lon: -80.0364 },
+    { name: 'Miami', state: 'FL', lat: 25.7617, lon: -80.1918 },
+    { name: 'Orlando', state: 'FL', lat: 28.5383, lon: -81.3792 },
+    { name: 'Tampa', state: 'FL', lat: 27.9506, lon: -82.4572 }
+  ];
+
+  const toRadians = (value) => (value * Math.PI) / 180;
+
+  const getDistanceMiles = (lat1, lon1, lat2, lon2) => {
+    const earthRadiusMiles = 3959;
+    const deltaLat = toRadians(lat2 - lat1);
+    const deltaLon = toRadians(lon2 - lon1);
+    const a =
+      Math.sin(deltaLat / 2) * Math.sin(deltaLat / 2) +
+      Math.cos(toRadians(lat1)) *
+        Math.cos(toRadians(lat2)) *
+        Math.sin(deltaLon / 2) *
+        Math.sin(deltaLon / 2);
+    const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+    return earthRadiusMiles * c;
+  };
+
+  const findNearestCity = (lat, lon) => {
+    let closest = null;
+    let smallestDistance = Infinity;
+
+    floridaCities.forEach((city) => {
+      const distance = getDistanceMiles(lat, lon, city.lat, city.lon);
+      if (distance < smallestDistance) {
+        smallestDistance = distance;
+        closest = city;
+      }
+    });
+
+    return { ...closest, distance: smallestDistance };
+  };
+
+  const handleUseLocation = () => {
+    if (!navigator?.geolocation) {
+      setLocationStatus('error');
+      return;
+    }
+
+    setLocationStatus('locating');
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        const { latitude, longitude } = position.coords;
+        const closest = findNearestCity(latitude, longitude);
+        const withinFloridaRange = closest.distance <= 300;
+        setNearestCity(
+          withinFloridaRange
+            ? closest
+            : { name: 'your area', state: '', distance: closest.distance }
+        );
+        setLocationStatus('found');
+      },
+      (error) => {
+        setLocationStatus(error?.code === 1 ? 'denied' : 'error');
+      },
+      { timeout: 8000, maximumAge: 600000, enableHighAccuracy: false }
+    );
+  };
+
+  const handleDemoLocation = () => {
+    setNearestCity({ name: 'Jacksonville', state: 'FL', distance: 0, demo: true });
+    setLocationStatus('found');
+  };
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
@@ -122,6 +194,48 @@ const TicketAnalysisResults = ({ analysis, ticketFile, onReset }) => {
             <span className="text-[#007BFF] text-xs font-bold uppercase tracking-wider mb-1 block">AI Summary</span>
             <p className="text-white/80 text-sm">{data.ai.quickSummary}</p>
           </div>
+        )}
+      </div>
+
+      <div className="bg-white/5 border border-white/10 rounded-2xl p-6 sm:p-8">
+        <h3 className="text-xl font-bold text-white mb-3">Local Attorney Network</h3>
+        <p className="text-white/70 text-sm">
+          Personalize your next step with a nearby attorney network after your scan.
+        </p>
+        <div className="mt-4 flex flex-col sm:flex-row gap-3">
+          <Button
+            onClick={handleUseLocation}
+            disabled={locationStatus === 'locating'}
+            className="bg-[#007BFF] text-white hover:bg-[#007BFF]/90"
+          >
+            {locationStatus === 'locating' ? 'Locating...' : 'Use my location'}
+          </Button>
+          <button
+            type="button"
+            onClick={handleDemoLocation}
+            className="text-sm font-semibold text-[#C6FF4D] hover:text-[#C6FF4D]/80"
+          >
+            Use demo location
+          </button>
+        </div>
+        {locationStatus === 'found' && nearestCity && (
+          <div className="mt-4 bg-[#C6FF4D]/10 border border-[#C6FF4D]/20 rounded-lg p-4 text-white/80 text-sm">
+            We can connect you with attorneys in{' '}
+            <span className="font-bold text-white">
+              {nearestCity.name}{nearestCity.state ? `, ${nearestCity.state}` : ''}
+            </span>
+            .
+          </div>
+        )}
+        {locationStatus === 'denied' && (
+          <p className="mt-3 text-sm text-white/60">
+            Location access was denied. You can still use the demo location.
+          </p>
+        )}
+        {locationStatus === 'error' && (
+          <p className="mt-3 text-sm text-white/60">
+            We could not access location. Try again or use the demo location.
+          </p>
         )}
       </div>
 
