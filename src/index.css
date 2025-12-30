@@ -68,6 +68,13 @@ input[type="number"] {
   -moz-appearance: textfield;
 }
 
+/* Prevent iOS zoom on form focus */
+input,
+select,
+textarea {
+  font-size: 16px;
+}
+
 /* Focus styles */
 *:focus-visible {
   @apply outline-none ring-2 ring-[#007BFF] ring-offset-2 ring-offset-[#0A1A2F];
