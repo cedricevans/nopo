@@ -264,7 +264,7 @@ const Header = () => {
               </div>
               
               <motion.div variants={itemVariants} className="mt-auto pt-8 pb-4 text-center">
-                 <p className="text-white/20 text-xs font-medium">© 2024 Citation Nation</p>
+                 <p className="text-white/20 text-xs font-medium">© 2026 Citation Nation</p>
               </motion.div>
 
             </div>

@@ -3,21 +3,21 @@ import { Helmet } from 'react-helmet-async';
 
 const CaseResults = () => {
   const results = [
-    { caseNo: 'ALG1NNE', date: 'Dec 29, 2025', disposition: '12/29/2025', county: 'MIAMI-DADE', charges: 'LEARNER’S LIC RESTR-ACCOMPANIED DR', result: 'DISMISSED OFFICER' },
-    { caseNo: 'AIOD9DE', date: 'Dec 18, 2025', disposition: '12/18/2025', county: 'MIAMI-DADE', charges: 'RAN STOP SIGN', result: 'DISMISSED OFFICER' },
-    { caseNo: 'AMIAZNE', date: 'Dec 18, 2025', disposition: '12/17/2025', county: 'MIAMI-DADE', charges: 'SPEED SCH ZONE', result: 'DISMISSED' },
-    { caseNo: 'AM1T5HE', date: 'Dec 9, 2025', disposition: '12/09/2025', county: 'MIAMI-DADE', charges: 'SPEEDING MUNICIPAL ROAD', result: 'DISMISSED' },
-    { caseNo: '25151971TI10A', date: 'Dec 8, 2025', disposition: '12/04/2025', county: 'BROWARD', charges: 'FAIL TO PROVIDE PROOF OF INSURANCE', result: 'DISMISSED' },
-    { caseNo: '25151970TI10A', date: 'Dec 8, 2025', disposition: '12/04/2025', county: 'BROWARD', charges: 'DL NOT CARRIED/EXHIBIT ON DEMAND', result: 'DISMISSED' },
-    { caseNo: 'A5LYFYP', date: 'Dec 8, 2025', disposition: '12/02/2025', county: 'MIAMI-DADE', charges: 'IMPROPER U TURN', result: 'DISMISSED' },
-    { caseNo: 'ALBQKQE', date: 'Dec 4, 2025', disposition: '12/04/2025', county: 'MIAMI-DADE', charges: 'SPEED/POSTED ZONE (STATE ROAD)', result: 'DISMISSED' },
-    { caseNo: '25129710TI30A', date: 'Nov 20, 2025', disposition: '11/20/2025', county: 'BROWARD', charges: 'RAN STOP SIGN', result: 'DISMISSED' },
-    { caseNo: 'AL2L77E', date: 'Nov 20, 2025', disposition: '11/20/2025', county: 'MIAMI-DADE', charges: 'CARELESS DRIVING', result: 'DISMISSED' },
-    { caseNo: '25149612TI30A', date: 'Nov 20, 2025', disposition: '11/18/2025', county: 'BROWARD', charges: 'CARELESS DRIVING', result: 'DISMISSED' },
-    { caseNo: 'AL4RFKE', date: 'Nov 19, 2025', disposition: '11/17/2025', county: 'MIAMI-DADE', charges: 'IMPROPER STOP LOAD/UNLOAD PASSENGER LIMITED ACCESS FACILITY', result: 'DISMISSED' },
-    { caseNo: '25126200TI40A', date: 'Nov 14, 2025', disposition: '11/10/2025', county: 'BROWARD', charges: 'DWLS UNKNOWINGLY', result: 'DISMISSED' },
-    { caseNo: 'AM667GE', date: 'Nov 5, 2025', disposition: '11/04/2025', county: 'MIAMI-DADE', charges: 'DWLS UNKNOWINGLY', result: 'DISMISSED' },
-    { caseNo: 'ALEA5RE', date: 'Oct 30, 2025', disposition: '10/30/2025', county: 'MIAMI-DADE', charges: 'DEFECTIVE EQUIPMENT – OWNER', result: 'DISMISSED' }
+    { caseNo: 'ALG1NNE', date: 'Dec 29, 2026', disposition: '12/29/2026', county: 'MIAMI-DADE', charges: 'LEARNER’S LIC RESTR-ACCOMPANIED DR', result: 'DISMISSED OFFICER' },
+    { caseNo: 'AIOD9DE', date: 'Dec 18, 2026', disposition: '12/18/2026', county: 'MIAMI-DADE', charges: 'RAN STOP SIGN', result: 'DISMISSED OFFICER' },
+    { caseNo: 'AMIAZNE', date: 'Dec 18, 2026', disposition: '12/17/2026', county: 'MIAMI-DADE', charges: 'SPEED SCH ZONE', result: 'DISMISSED' },
+    { caseNo: 'AM1T5HE', date: 'Dec 9, 2026', disposition: '12/09/2026', county: 'MIAMI-DADE', charges: 'SPEEDING MUNICIPAL ROAD', result: 'DISMISSED' },
+    { caseNo: '25151971TI10A', date: 'Dec 8, 2026', disposition: '12/04/2026', county: 'BROWARD', charges: 'FAIL TO PROVIDE PROOF OF INSURANCE', result: 'DISMISSED' },
+    { caseNo: '25151970TI10A', date: 'Dec 8, 2026', disposition: '12/04/2026', county: 'BROWARD', charges: 'DL NOT CARRIED/EXHIBIT ON DEMAND', result: 'DISMISSED' },
+    { caseNo: 'A5LYFYP', date: 'Dec 8, 2026', disposition: '12/02/2026', county: 'MIAMI-DADE', charges: 'IMPROPER U TURN', result: 'DISMISSED' },
+    { caseNo: 'ALBQKQE', date: 'Dec 4, 2026', disposition: '12/04/2026', county: 'MIAMI-DADE', charges: 'SPEED/POSTED ZONE (STATE ROAD)', result: 'DISMISSED' },
+    { caseNo: '25129710TI30A', date: 'Nov 20, 2026', disposition: '11/20/2026', county: 'BROWARD', charges: 'RAN STOP SIGN', result: 'DISMISSED' },
+    { caseNo: 'AL2L77E', date: 'Nov 20, 2026', disposition: '11/20/2026', county: 'MIAMI-DADE', charges: 'CARELESS DRIVING', result: 'DISMISSED' },
+    { caseNo: '25149612TI30A', date: 'Nov 20, 2026', disposition: '11/18/2026', county: 'BROWARD', charges: 'CARELESS DRIVING', result: 'DISMISSED' },
+    { caseNo: 'AL4RFKE', date: 'Nov 19, 2026', disposition: '11/17/2026', county: 'MIAMI-DADE', charges: 'IMPROPER STOP LOAD/UNLOAD PASSENGER LIMITED ACCESS FACILITY', result: 'DISMISSED' },
+    { caseNo: '25126200TI40A', date: 'Nov 14, 2026', disposition: '11/10/2026', county: 'BROWARD', charges: 'DWLS UNKNOWINGLY', result: 'DISMISSED' },
+    { caseNo: 'AM667GE', date: 'Nov 5, 2026', disposition: '11/04/2026', county: 'MIAMI-DADE', charges: 'DWLS UNKNOWINGLY', result: 'DISMISSED' },
+    { caseNo: 'ALEA5RE', date: 'Oct 30, 2026', disposition: '10/30/2026', county: 'MIAMI-DADE', charges: 'DEFECTIVE EQUIPMENT – OWNER', result: 'DISMISSED' }
   ];
 
   return (

@@ -10,7 +10,7 @@ const formatDateForICS = (dateStr, timeStr = '08:30') => {
 };
 
 const buildEventDetails = (caseData) => {
-  const courtDate = caseData.courtDate || '2024-02-10'; // Fallback
+  const courtDate = caseData.courtDate || '2026-02-10'; // Fallback
   // Default to 8:30 AM for court appearances if not specified
   const startTime = '08:30'; 
   const endTime = '12:00';

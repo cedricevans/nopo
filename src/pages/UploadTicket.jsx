@@ -1,5 +1,5 @@
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { Upload as UploadIcon, FileText, CheckCircle, AlertCircle, ArrowRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -20,6 +20,10 @@ const UploadTicket = () => {
 
   const { toast } = useToast();
   const navigate = useNavigate();
+
+  useEffect(() => {
+    window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
+  }, []);
 
   const handleFileChange = (e) => {
     const selectedFile = e.target.files?.[0];
@@ -101,6 +105,16 @@ const UploadTicket = () => {
         </div>
 
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+          {analysisComplete && (
+            <div className="text-center mb-8 mt-6">
+              <p className="text-white/60 text-xs uppercase tracking-wider mb-2">
+                Upload Results
+              </p>
+              <h1 className="text-3xl sm:text-4xl font-black text-white">
+                Ticket Upload Complete
+              </h1>
+            </div>
+          )}
           {!analysisComplete ? (
             <>
               <div className="text-center mb-12">
@@ -207,7 +221,7 @@ const UploadTicket = () => {
               </div>
             </>
           ) : (
-            <div className="bg-white/5 backdrop-blur-lg border border-white/10 rounded-3xl p-8 sm:p-12 shadow-2xl text-center">
+            <div className="bg-white/5 backdrop-blur-lg border border-white/10 rounded-3xl p-8 sm:p-12 shadow-2xl text-center mt-6">
               <CheckCircle className="h-16 w-16 text-[#C6FF4D] mx-auto mb-4" />
               <h2 className="text-3xl sm:text-4xl font-black text-white mb-4">
                 Ticket Uploaded

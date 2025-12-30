@@ -132,7 +132,7 @@ const LegalDisclaimer = () => {
 
             <section className="pt-4 border-t border-white/10">
               <p className="text-white/60 text-sm">
-                Last updated: December 23, 2025
+                Last updated: December 23, 2026
               </p>
               <p className="text-white/60 text-sm mt-2">
                 If you have questions about this disclaimer, please contact us at legal@citationnation.com

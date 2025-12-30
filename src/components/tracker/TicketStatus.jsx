@@ -83,7 +83,7 @@ const TicketStatus = ({ ticket }) => {
           <div>
             <h3 className="text-white font-bold mb-4">Estimated Completion</h3>
             <p className="text-3xl font-black text-white">
-                {currentStageIndex === 4 ? "Completed" : "Oct 30, 2024"}
+                {currentStageIndex === 4 ? "Completed" : "Oct 30, 2026"}
             </p>
             <p className="text-white/50 text-xs mt-1">Timeline is an estimate based on court load.</p>
           </div>

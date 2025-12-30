@@ -19,6 +19,15 @@ const ScrollToTop = () => {
     return () => cancelAnimationFrame(raf);
   }, [pathname]);
 
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
+      document.documentElement.scrollTop = 0;
+      document.body.scrollTop = 0;
+    }, 50);
+    return () => clearTimeout(timer);
+  }, [pathname]);
+
   return null; // This component doesn't render anything, it just performs a side effect
 };
 
