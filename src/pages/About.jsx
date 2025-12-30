@@ -34,7 +34,7 @@ const About = () => {
         <meta name="description" content="Learn about Citation Nation's mission to help drivers fight unfair traffic tickets using AI-powered analysis." />
       </Helmet>
 
-      <main className="min-h-screen pt-24 pb-16">
+      <main className="min-h-screen pt-32 pb-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h1 className="text-4xl sm:text-5xl md:text-6xl font-black text-white mb-6">

@@ -52,7 +52,7 @@ const LawyerMatching = () => {
         <meta name="description" content="Send your scanned ticket to our partner firm for review and next steps." />
       </Helmet>
 
-      <main className="min-h-screen pt-24 pb-16 bg-[#0A1A2F]">
+      <main className="min-h-screen pt-32 pb-16 bg-[#0A1A2F]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           
           <div className="mb-8">

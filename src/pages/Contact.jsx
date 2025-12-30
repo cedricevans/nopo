@@ -64,7 +64,7 @@ const Contact = () => {
         <meta name="description" content="Get in touch with Citation Nation. We're here to help with your traffic ticket questions and concerns." />
       </Helmet>
 
-      <main className="min-h-screen pt-24 pb-16">
+      <main className="min-h-screen pt-32 pb-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h1 className="text-4xl sm:text-5xl md:text-6xl font-black text-white mb-6">

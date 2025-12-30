@@ -85,7 +85,7 @@ const Confirmation = () => {
         <meta name="description" content="View and download your AI-generated traffic ticket defense strategy." />
       </Helmet>
 
-      <div className="min-h-screen pt-24 pb-16 bg-[#0A1A2F] relative print:bg-white print:p-0 print:min-h-0">
+      <div className="min-h-screen pt-32 pb-16 bg-[#0A1A2F] relative print:bg-white print:p-0 print:min-h-0">
         
         <div className="absolute inset-0 z-0 opacity-20 pointer-events-none print:hidden">
            <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-[#007BFF] rounded-full blur-[120px] mix-blend-screen opacity-20"></div>

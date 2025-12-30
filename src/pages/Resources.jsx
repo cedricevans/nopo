@@ -95,7 +95,7 @@ const Resources = () => {
         <meta name="description" content="Comprehensive guide to fighting Florida traffic tickets. Learn about laws, points system, court processes, and calculate your potential savings." />
       </Helmet>
 
-      <div className="min-h-screen bg-[#0A1A2F] text-white pt-24 pb-16">
+      <div className="min-h-screen bg-[#0A1A2F] text-white pt-32 pb-16">
         
         {/* Header Section */}
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-16">

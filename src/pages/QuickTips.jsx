@@ -59,7 +59,7 @@ const QuickTips = () => {
   ];
 
   return (
-    <div className="pt-24 pb-16 bg-[#0A1A2F] min-h-screen">
+    <div className="pt-32 pb-16 bg-[#0A1A2F] min-h-screen">
       <Helmet>
         <title>Quick Tips & Free Advice - Citation Nation</title>
         <meta name="description" content="Free traffic court tips and advice. Learn what to bring to court, how to read your ticket, and understand the process." />

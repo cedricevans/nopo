@@ -56,7 +56,7 @@ const Eligibility = () => {
         />
       </Helmet>
 
-      <main className="min-h-screen pt-24 pb-16 relative">
+      <main className="min-h-screen pt-32 pb-16 relative">
         <div className="absolute inset-0 z-0 bg-[url('https://images.unsplash.com/photo-1489515217757-5fd1be406fef?auto=format&fit=crop&w=2000&q=80')] bg-cover bg-center opacity-10 pointer-events-none"></div>
         <div className="absolute inset-0 z-0 bg-gradient-to-b from-[#0A1A2F] via-[#0A1A2F]/95 to-[#0A1A2F]"></div>
 

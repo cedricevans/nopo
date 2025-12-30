@@ -91,7 +91,7 @@ const UploadTicket = () => {
         />
       </Helmet>
 
-      <main className="min-h-screen pt-24 pb-16 relative">
+      <main className="min-h-screen pt-32 pb-16 relative">
         <div className="fixed inset-0 z-0 opacity-10 pointer-events-none">
           <img
             className="w-full h-full object-cover"

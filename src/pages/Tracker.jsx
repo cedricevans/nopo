@@ -104,7 +104,7 @@ const Tracker = () => {
         <meta name="description" content="Check the real-time status of your traffic ticket case." />
       </Helmet>
 
-      <main className="min-h-screen pt-28 pb-20 relative">
+      <main className="min-h-screen pt-32 pb-20 relative">
         <div className="absolute inset-0 z-0 bg-[url('https://images.unsplash.com/photo-1557804506-669a67965ba0?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80')] bg-cover bg-center opacity-10 pointer-events-none"></div>
         <div className="absolute inset-0 z-0 bg-gradient-to-b from-[#0A1A2F] via-[#0A1A2F]/90 to-[#0A1A2F]"></div>
 

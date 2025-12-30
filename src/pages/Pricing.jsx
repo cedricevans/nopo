@@ -15,7 +15,7 @@ const Pricing = () => {
         <meta name="description" content="Clear pricing for attorney-backed ticket defense." />
       </Helmet>
 
-      <main className="min-h-screen pt-24 pb-16 relative">
+      <main className="min-h-screen pt-32 pb-16 relative">
         <div className="absolute top-0 left-0 w-full h-[500px] z-0 overflow-hidden opacity-20 pointer-events-none">
           <img
             className="w-full h-full object-cover"

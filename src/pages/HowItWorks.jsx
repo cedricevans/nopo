@@ -15,7 +15,7 @@ const HowItWorks = () => {
         <meta name="description" content="Learn how Citation Nation's AI-powered system analyzes your traffic ticket and generates winning defense strategies." />
       </Helmet>
 
-      <main className="min-h-screen pt-24 pb-16">
+      <main className="min-h-screen pt-32 pb-16">
         <HowItWorksSection />
         
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center mt-16">

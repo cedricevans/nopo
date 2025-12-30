@@ -47,7 +47,7 @@ const LawyerConfirmation = () => {
         <title>Firm Review Confirmed - Citation Nation</title>
       </Helmet>
 
-      <main className="min-h-screen pt-24 pb-16 bg-[#0A1A2F]">
+      <main className="min-h-screen pt-32 pb-16 bg-[#0A1A2F]">
          <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
             
             <div className="text-center mb-12">
