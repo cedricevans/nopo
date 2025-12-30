@@ -101,10 +101,10 @@ const CaseProgress = () => {
               Go to Case Dashboard
             </Link>
             <Link
-              to="/contact"
+              to="/dashboard"
               className="bg-[#007BFF] text-white hover:bg-[#007BFF]/90 font-bold py-4 px-8 rounded-full transition-colors"
             >
-              Contact Support
+              Resume Case
             </Link>
           </div>
         </div>

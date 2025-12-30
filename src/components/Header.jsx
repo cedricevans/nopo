@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
-import { Shield, Menu, X, Search, Upload, BookOpen, Info, Phone, DollarSign, Lightbulb, ChevronRight } from 'lucide-react';
+import { Shield, Menu, X, Search, Upload, BookOpen, Info, Phone, DollarSign, Lightbulb, ChevronRight, Mail, Instagram, Twitter } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 const Header = () => {
@@ -24,7 +24,7 @@ const Header = () => {
     { name: 'Quick Tips', path: '/quick-tips', icon: Lightbulb },
     { name: 'Pricing', path: '/pricing', icon: DollarSign },
     { name: 'How It Works', path: '/how-it-works', icon: Info },
-    { name: 'Contact', path: '/contact', icon: Phone },
+    { name: 'Recent Results', path: '/case-results', icon: Shield },
   ];
 
   const isActive = (path) => location.pathname === path;
@@ -62,6 +62,31 @@ const Header = () => {
 
   return (
     <header className="fixed top-0 left-0 right-0 z-[100] bg-[#0A1A2F]/95 backdrop-blur-md border-b border-white/10 shadow-lg supports-[backdrop-filter]:bg-[#0A1A2F]/80">
+      <div className="bg-[#071225] border-b border-white/10">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="h-10 flex items-center justify-between text-xs text-white/70">
+            <div className="flex items-center gap-4">
+              <span className="flex items-center gap-2">
+                <Phone className="w-3.5 h-3.5 text-[#C6FF4D]" />
+                (305) 555-0199
+              </span>
+              <span className="hidden sm:flex items-center gap-2">
+                <Mail className="w-3.5 h-3.5 text-[#C6FF4D]" />
+                support@citationnation.com
+              </span>
+            </div>
+            <div className="flex items-center gap-3">
+              <a href="https://twitter.com" className="hover:text-white transition-colors" aria-label="Twitter">
+                <Twitter className="w-3.5 h-3.5" />
+              </a>
+              <a href="https://instagram.com" className="hover:text-white transition-colors" aria-label="Instagram">
+                <Instagram className="w-3.5 h-3.5" />
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-20 relative z-[101]">
           {/* Logo */}
@@ -144,8 +169,8 @@ const Header = () => {
             initial="hidden"
             animate="visible"
             exit="exit"
-            className="fixed inset-0 top-[80px] bg-[#0A1A2F]/95 backdrop-blur-xl z-[100] overflow-y-auto lg:hidden flex flex-col border-t border-white/10"
-            style={{ height: 'calc(100dvh - 80px)' }} // Use dvh for better mobile browser support
+            className="fixed inset-0 top-[120px] bg-[#0A1A2F]/95 backdrop-blur-xl z-[100] overflow-y-auto lg:hidden flex flex-col border-t border-white/10"
+            style={{ height: 'calc(100dvh - 120px)' }} // Account for mini bar + main header
           >
             <div className="flex flex-col p-6 min-h-full">
               
