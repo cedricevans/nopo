@@ -10,7 +10,7 @@ import { motion } from 'framer-motion';
  */
 const HeroSection = () => {
   const navigate = useNavigate();
-  return <section className="relative min-h-screen flex items-center overflow-hidden pt-24 pb-12 lg:pb-16 bg-[#0A1A2F]">
+  return <section className="relative min-h-screen flex items-center overflow-hidden pt-20 lg:pt-16 pb-12 lg:pb-16 bg-[#0A1A2F]">
       {/* Background radial gradient effect */}
       <div className="absolute top-0 left-0 w-full h-full overflow-hidden z-0">
           <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-[#007BFF]/10 rounded-full blur-[100px]" />
@@ -21,7 +21,7 @@ const HeroSection = () => {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-20 items-center">
           
           {/* Left Column: Content - ORDER 1 on Mobile (First) */}
-          <div className="text-center lg:text-left order-1 lg:order-1 pt-4 lg:pt-0">
+          <div className="text-center lg:text-left order-1 lg:order-1 pt-0">
             <motion.div initial={{
             opacity: 0,
             y: 20
@@ -35,10 +35,12 @@ const HeroSection = () => {
                 <Gavel className="w-4 h-4 mr-2" />
                 #1 Traffic Ticket Defense Service
               </div>
-              <h1 className="text-4xl sm:text-5xl lg:text-7xl font-black text-white leading-[1.1] mb-6 tracking-tight">
+              <h1 className="text-5xl sm:text-6xl lg:text-7xl font-black text-white leading-[1.05] mb-6 tracking-tight">
                 Got a Ticket?
                 <br />
-                We&apos;ve Got You.
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#007BFF] to-[#C6FF4D]">
+                  We&apos;ve Got You.
+                </span>
               </h1>
             </motion.div>
 
@@ -83,15 +85,15 @@ const HeroSection = () => {
           }} transition={{
             duration: 0.6,
             delay: 0.4
-          }} className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 mb-6 lg:mb-6">
-              <Button onClick={() => navigate('/upload-ticket')} className="bg-[#CCFF00] hover:bg-[#CCFF00]/90 text-[#0A1A2F] font-bold text-base sm:text-lg px-6 sm:px-8 py-6 sm:py-7 rounded-full shadow-[0_0_20px_rgba(204,255,0,0.3)] hover:shadow-[0_0_30px_rgba(204,255,0,0.4)] transition-all duration-300 w-full sm:w-auto h-[64px] sm:h-[76px] whitespace-nowrap">
+          }} className="flex flex-col sm:flex-row sm:flex-nowrap items-center justify-center lg:justify-start gap-3 sm:gap-4 mb-6 lg:mb-6">
+              <Button onClick={() => navigate('/upload-ticket')} className="bg-[#CCFF00] hover:bg-[#CCFF00]/90 text-[#0A1A2F] font-bold text-base sm:text-lg px-6 sm:px-7 py-6 sm:py-7 rounded-full shadow-[0_0_20px_rgba(204,255,0,0.3)] hover:shadow-[0_0_30px_rgba(204,255,0,0.4)] transition-all duration-300 w-full sm:w-auto h-[64px] sm:h-[76px] whitespace-nowrap">
                 <span className="flex items-center justify-center w-full">
                   Scan or Upload Your Ticket
                   <ArrowRight className="ml-2 h-5 w-5 flex-shrink-0" />
                 </span>
               </Button>
-              <Button onClick={() => navigate('/upload-ticket')} variant="outline" className="border-white/30 text-white hover:bg-white/10 font-semibold text-sm sm:text-base px-5 sm:px-6 py-5 rounded-full w-full sm:w-auto h-[64px] whitespace-nowrap">
-                Check Ticket Eligibility
+              <Button onClick={() => navigate('/upload-ticket')} variant="outline" className="border-white/30 text-white hover:bg-white/10 font-semibold text-xs sm:text-sm px-4 sm:px-5 py-5 rounded-full w-full sm:w-auto h-[64px] whitespace-nowrap">
+                Check Ticket Eligibility (takes ~5 seconds)
               </Button>
             </motion.div>
 
@@ -113,6 +115,7 @@ const HeroSection = () => {
             <p className="text-white/60 text-xs sm:text-sm mb-6 text-center lg:text-left">
               Eligibility is based on your citation details. Start by scanning your ticket.
             </p>
+
 
             {/* Trust Badges */}
             <motion.div initial={{

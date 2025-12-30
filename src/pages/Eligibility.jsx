@@ -70,7 +70,7 @@ const Eligibility = () => {
               Good News — You&apos;re Eligible for Defense
             </h1>
             <p className="text-white/70 text-lg mb-6">
-              We can assign a licensed attorney to contest or mitigate your ticket.
+              Based on your citation, we can assign a licensed attorney to contest or mitigate your ticket.
             </p>
 
             <div className="bg-white/5 border border-white/10 rounded-2xl p-6 mb-6">

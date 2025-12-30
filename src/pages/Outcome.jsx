@@ -168,10 +168,10 @@ const Outcome = () => {
               </div>
             </div>
 
-            <div className="flex flex-col sm:flex-row items-center gap-4">
+            <div className="flex flex-col sm:flex-row items-center gap-4 w-full">
               <Button
                 onClick={handleDownload}
-                className="bg-[#C6FF4D] text-[#0A1A2F] hover:bg-[#C6FF4D]/90 font-bold py-5 px-8 rounded-full"
+                className="bg-[#C6FF4D] text-[#0A1A2F] hover:bg-[#C6FF4D]/90 font-bold py-5 px-8 rounded-full w-full sm:w-auto h-14"
               >
                 <Download className="w-4 h-4 mr-2" />
                 Download Case Summary (PDF)
@@ -179,13 +179,13 @@ const Outcome = () => {
               <Button
                 variant="outline"
                 onClick={handlePrint}
-                className="border-white/30 text-white hover:bg-white/10 font-bold py-5 px-8 rounded-full"
+                className="border-white/30 text-white hover:bg-white/10 font-bold py-5 px-8 rounded-full w-full sm:w-auto h-14"
               >
                 Print Summary
               </Button>
               <Link
                 to="/dashboard"
-                className="bg-[#007BFF] text-white hover:bg-[#007BFF]/90 font-bold py-5 px-8 rounded-full transition-colors"
+                className="bg-[#007BFF] text-white hover:bg-[#007BFF]/90 font-bold py-5 px-8 rounded-full transition-colors w-full sm:w-auto h-14"
               >
                 Back to Dashboard
               </Link>
