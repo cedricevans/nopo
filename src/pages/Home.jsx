@@ -5,7 +5,6 @@ import HeroSection from '@/components/home/HeroSection';
 import UploadDemo from '@/components/home/UploadDemo';
 import HowItWorksSection from '@/components/home/HowItWorksSection';
 import AiDemoPreview from '@/components/home/AiDemoPreview';
-import PricingTiers from '@/components/home/PricingTiers';
 import Testimonials from '@/components/home/Testimonials';
 import Guarantees from '@/components/home/Guarantees';
 import FAQ from '@/components/home/FAQ';
@@ -25,7 +24,6 @@ const Home = () => {
         <UploadDemo />
         <HowItWorksSection />
         <AiDemoPreview />
-        <PricingTiers />
         <Guarantees />
         <Testimonials />
         <FAQ />

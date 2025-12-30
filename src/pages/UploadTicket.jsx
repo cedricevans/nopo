@@ -70,6 +70,13 @@ const UploadTicket = () => {
   const [isAnalyzing, setIsAnalyzing] = useState(false);
   const [analysisComplete, setAnalysisComplete] = useState(false);
   const [analysisData, setAnalysisData] = useState(null);
+  const [analysisStep, setAnalysisStep] = useState(0);
+  const analysisSteps = [
+    'Reading ticket image...',
+    'Extracting citation details...',
+    'Cross-checking statutes...',
+    'Drafting strategy outline...'
+  ];
 
   const { toast } = useToast();
   const navigate = useNavigate();
@@ -109,9 +116,14 @@ const UploadTicket = () => {
     }
 
     setIsAnalyzing(true);
+    setAnalysisStep(0);
+    const stepInterval = setInterval(() => {
+      setAnalysisStep((prev) => (prev + 1) % analysisSteps.length);
+    }, 700);
 
     // Demo: simulate scan + extraction
     setTimeout(() => {
+      clearInterval(stepInterval);
       setIsAnalyzing(false);
       setAnalysisData(demoScanResult);
       setAnalysisComplete(true);
@@ -121,7 +133,7 @@ const UploadTicket = () => {
         title: 'Analysis complete',
         description: 'Ticket details extracted successfully',
       });
-    }, 2000);
+    }, 2400);
   };
 
   const handleReset = () => {
@@ -208,6 +220,11 @@ const UploadTicket = () => {
                       'Start AI Analysis'
                     )}
                   </Button>
+                  {isAnalyzing && (
+                    <p className="text-center text-white/60 text-sm">
+                      {analysisSteps[analysisStep]}
+                    </p>
+                  )}
 
                   <div className="relative flex items-center py-6">
                     <div className="flex-grow border-t border-white/10"></div>

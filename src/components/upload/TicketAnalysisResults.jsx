@@ -2,19 +2,23 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/button';
-import { ArrowRight, RefreshCw, Scale, Sparkles, FileSearch, Gavel } from 'lucide-react';
+import { ArrowRight, RefreshCw, Sparkles, FileSearch } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
+import { Input } from '@/components/ui/input';
 
 /**
  * Ticket Analysis Results Component
  * Displays comprehensive AI analysis results and offers two distinct flows:
- * 1. AI Strategy (Pricing -> Confirmation)
- * 2. Lawyer Matching (Lawyer Selection -> Confirmation)
+ * 1. AI Strategy (Scan -> Confirmation)
  */
 const TicketAnalysisResults = ({ analysis, ticketFile, onReset }) => {
   const navigate = useNavigate();
   const [locationStatus, setLocationStatus] = useState('idle');
   const [nearestCity, setNearestCity] = useState(null);
+  const [contactEmail, setContactEmail] = useState('');
+  const [contactPhone, setContactPhone] = useState('');
+  const [contactError, setContactError] = useState('');
+  const [caseNumber] = useState(() => `CN-${Math.floor(100000 + Math.random() * 900000)}`);
 
   // Use passed analysis or fallback to default structure if missing (safeguard)
   const data = analysis || {
@@ -49,32 +53,29 @@ const TicketAnalysisResults = ({ analysis, ticketFile, onReset }) => {
   };
 
   const handleAiStrategyFlow = () => {
-    const caseData = normalizeCaseData(data);
-    // Navigate to pricing with the case data
-    navigate('/pricing', { 
-      state: { 
-        caseData,
-        ticketImage: data.ticketImage || null,
-        flow: 'ai-strategy'
-      } 
-    });
-  };
-
-  const handleLawyerFlow = () => {
+    const emailLooksValid = contactEmail.includes('@') && contactEmail.includes('.');
+    if (!contactPhone.trim() || !emailLooksValid) {
+      setContactError('Please enter a valid email and phone number to continue.');
+      return;
+    }
+    setContactError('');
     const caseData = normalizeCaseData(data);
     const hasPreferredCity = nearestCity && nearestCity.name && nearestCity.name !== 'your area';
-    // Navigate to lawyer matching with the case data
-    navigate('/lawyer-matching', { 
-      state: { 
+    navigate('/confirmation', {
+      state: {
         caseData: {
           ...caseData,
+          caseNumber,
+          contactEmail,
+          contactPhone,
+          planType: 'ai-basic',
           ...(hasPreferredCity
             ? { preferredCity: nearestCity.name, preferredState: nearestCity.state || '' }
             : {})
         },
         ticketImage: data.ticketImage || null,
-        flow: 'lawyer-match'
-      } 
+        flow: 'ai-strategy'
+      }
     });
   };
 
@@ -204,6 +205,38 @@ const TicketAnalysisResults = ({ analysis, ticketFile, onReset }) => {
       </div>
 
       <div className="bg-white/5 border border-white/10 rounded-2xl p-6 sm:p-8">
+        <h3 className="text-xl font-bold text-white mb-4">Contact Details</h3>
+        <p className="text-white/60 text-sm mb-6">
+          We use this to attach your strategy to Case #{caseNumber} and send updates.
+        </p>
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <Input
+            type="email"
+            placeholder="Email address"
+            value={contactEmail}
+            onChange={(e) => {
+              setContactEmail(e.target.value);
+              if (contactError) setContactError('');
+            }}
+            className="bg-white/5 border-white/10 text-white"
+          />
+          <Input
+            type="tel"
+            placeholder="Phone number"
+            value={contactPhone}
+            onChange={(e) => {
+              setContactPhone(e.target.value);
+              if (contactError) setContactError('');
+            }}
+            className="bg-white/5 border-white/10 text-white"
+          />
+        </div>
+        {contactError && (
+          <p className="mt-3 text-sm text-red-300">{contactError}</p>
+        )}
+      </div>
+
+      <div className="bg-white/5 border border-white/10 rounded-2xl p-6 sm:p-8">
         <h3 className="text-xl font-bold text-white mb-3">Local Attorney Network</h3>
         <p className="text-white/70 text-sm">
           Personalize your next step with a nearby attorney network after your scan.
@@ -249,40 +282,21 @@ const TicketAnalysisResults = ({ analysis, ticketFile, onReset }) => {
         )}
       </div>
 
-      {/* Dual Flow Action Buttons */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pt-4">
-        {/* Option 1: AI Strategy Path */}
+      {/* Primary Action */}
+      <div className="pt-4">
         <motion.div 
             whileHover={{ scale: 1.02 }}
             className="flex flex-col h-full"
         >
           <Button
             onClick={handleAiStrategyFlow}
-            className="w-full h-full min-h-[140px] flex flex-col items-center justify-center bg-[#C6FF4D] text-[#0A1A2F] hover:bg-[#C6FF4D]/90 font-bold p-6 rounded-2xl shadow-[0_0_20px_rgba(198,255,77,0.3)] space-y-3"
+            className="w-full min-h-[140px] flex flex-col items-center justify-center bg-[#C6FF4D] text-[#0A1A2F] hover:bg-[#C6FF4D]/90 font-bold p-6 rounded-2xl shadow-[0_0_20px_rgba(198,255,77,0.3)] space-y-3"
           >
             <Sparkles className="h-8 w-8 mb-2" />
-            <div className="text-xl">Match with Attorney (AI Strategy)</div>
-            <span className="text-sm font-normal opacity-80">Get instant defense plan & attorney review</span>
+            <div className="text-xl">Get AI Strategy - $19</div>
+            <span className="text-sm font-normal opacity-80">Instant defense plan + attorney review</span>
             <div className="flex items-center text-xs font-bold uppercase tracking-wider bg-black/10 px-3 py-1 rounded-full mt-2">
-              Recommended <ArrowRight className="ml-1 w-3 h-3" />
-            </div>
-          </Button>
-        </motion.div>
-
-        {/* Option 2: Lawyer Only Path */}
-        <motion.div 
-            whileHover={{ scale: 1.02 }}
-            className="flex flex-col h-full"
-        >
-          <Button
-            onClick={handleLawyerFlow}
-            className="w-full h-full min-h-[140px] flex flex-col items-center justify-center bg-white/10 text-white hover:bg-white/20 border border-white/20 font-bold p-6 rounded-2xl space-y-3"
-          >
-            <Scale className="h-8 w-8 mb-2 text-[#007BFF]" />
-            <div className="text-xl">Skip AI, Work with Lawyer</div>
-            <span className="text-sm font-normal opacity-70">Directly hire a local traffic attorney</span>
-            <div className="flex items-center text-xs font-bold uppercase tracking-wider bg-white/10 px-3 py-1 rounded-full mt-2">
-              Professional Representation <ArrowRight className="ml-1 w-3 h-3" />
+              Start Now <ArrowRight className="ml-1 w-3 h-3" />
             </div>
           </Button>
         </motion.div>

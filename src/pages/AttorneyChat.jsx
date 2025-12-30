@@ -3,7 +3,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Send, Paperclip, ArrowLeft, Phone, MoreVertical, ShieldCheck, Clock } from 'lucide-react';
+import { Send, Paperclip, ArrowLeft, Phone, MoreVertical, ShieldCheck } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar';
@@ -31,7 +31,7 @@ const AttorneyChat = () => {
         const initialMessage = {
           id: 1,
           sender: 'attorney',
-          text: `Hello! I'm ${lawyer.name.split(' ')[0]}. I've received your case file regarding the ${caseData.violationCode || 'traffic'} violation in ${caseData.city || 'your area'}. I'm reviewing the details now. Do you have any specific questions about the incident?`,
+          text: `Hello! You're connected with ${lawyer.name}'s intake team. We received your case file for the ${caseData.violationCode || 'traffic'} violation in ${caseData.city || 'your area'}. We’re reviewing the details now. Do you have any specific questions about the incident?`,
           timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
         };
         setMessages([initialMessage]);
@@ -67,13 +67,13 @@ const AttorneyChat = () => {
       
       const lowerInput = userMsg.text.toLowerCase();
       if (lowerInput.includes('cost') || lowerInput.includes('price') || lowerInput.includes('fee')) {
-        responseText = `My flat fee of ${lawyer.fee} covers the initial appearance and negotiation. There are no hidden costs unless we proceed to a full trial, which we can discuss if necessary.`;
+        responseText = `Our flat fee of ${lawyer.fee} covers the initial review and case preparation. If we proceed beyond that, we’ll outline any additional costs before moving forward.`;
       } else if (lowerInput.includes('court') || lowerInput.includes('date')) {
-        responseText = `Your court date is currently set for ${caseData.courtDate || 'a future date'}. You typically won't need to appear personally as I will file a waiver of appearance on your behalf.`;
+        responseText = `Your court date is currently set for ${caseData.courtDate || 'a future date'}. If representation is confirmed, we can file a waiver of appearance where allowed.`;
       } else if (lowerInput.includes('points') || lowerInput.includes('record')) {
-        responseText = "My primary goal is to get the points dismissed or the charge reduced to a non-moving violation so your insurance rates aren't affected.";
+        responseText = "Our goal is to reduce or dismiss the charge to help protect your driving record and insurance rates.";
       } else if (lowerInput.includes('guarantee')) {
-        responseText = "While I can't ethically guarantee a specific outcome, I have a very high success rate with cases like yours in this specific court.";
+        responseText = "We can't guarantee outcomes, but we will outline the strongest options available for your situation.";
       }
 
       const attorneyMsg = {

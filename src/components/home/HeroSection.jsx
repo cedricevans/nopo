@@ -1,7 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
-import { ArrowRight, Shield, Upload, CheckCircle2, Gavel, Zap } from 'lucide-react';
+import { ArrowRight, Shield, Upload, CheckCircle2, Gavel } from 'lucide-react';
 import { motion } from 'framer-motion';
 
 /**
@@ -41,7 +41,7 @@ const HeroSection = () => {
                 Traffic Ticket
                 <br />
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#007BFF] to-[#C6FF4D]">
-                  For You
+                  For You starting at $19
                 </span>
               </h1>
             </motion.div>
@@ -76,7 +76,7 @@ const HeroSection = () => {
           }} transition={{
             duration: 0.6,
             delay: 0.2
-          }} className="text-lg sm:text-xl text-white/70 mb-8 max-w-2xl mx-auto lg:mx-0 font-medium leading-relaxed">Don't stress about court. Our experienced legal team handles everything from filing to fighting so you don't have to.</motion.p>
+          }} className="text-lg sm:text-xl text-white/70 mb-8 max-w-2xl mx-auto lg:mx-0 font-medium leading-relaxed">Start with the $19 AI strategy for fast, actionable guidance, or upgrade to the $49 firm review for hands-on support.</motion.p>
 
             <motion.div initial={{
             opacity: 0,
@@ -87,26 +87,13 @@ const HeroSection = () => {
           }} transition={{
             duration: 0.6,
             delay: 0.4
-          }} className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 mb-8 lg:mb-12">
-              <div className="flex flex-col w-full sm:w-auto gap-2">
-                <Button onClick={() => navigate('/pricing')} className="bg-[#CCFF00] hover:bg-[#CCFF00]/90 text-[#0A1A2F] font-bold text-lg px-6 py-7 rounded-full shadow-[0_0_20px_rgba(204,255,0,0.3)] hover:shadow-[0_0_30px_rgba(204,255,0,0.4)] transition-all duration-300 w-full sm:w-[280px] h-[72px] whitespace-nowrap">
-                  <span className="flex items-center justify-center w-full">
-                    Let Us Handle It - Only $49
-                    <ArrowRight className="ml-2 h-5 w-5 flex-shrink-0" />
-                  </span>
-                </Button>
-                <p className="text-center text-xs text-white/50 h-[16px]">Full legal representation</p>
-              </div>
-
-              <div className="flex flex-col w-full sm:w-auto gap-2">
-                <Button onClick={() => navigate('/upload-ticket')} className="bg-transparent border border-white/20 text-white hover:bg-white/5 font-bold text-lg px-6 py-7 rounded-full transition-all duration-300 w-full sm:w-[280px] h-[72px] group whitespace-nowrap">
-                  <span className="flex items-center justify-center w-full">
-                    <Zap className="w-5 h-5 mr-2 text-[#007BFF] group-hover:text-white transition-colors flex-shrink-0" />
-                    Get AI Strategy - $19
-                  </span>
-                </Button>
-                <p className="text-center text-xs text-white/50 h-[16px]">Self-service budget option</p>
-              </div>
+          }} className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 mb-8 lg:mb-8">
+              <Button onClick={() => navigate('/upload-ticket')} className="bg-[#CCFF00] hover:bg-[#CCFF00]/90 text-[#0A1A2F] font-bold text-lg px-8 py-7 rounded-full shadow-[0_0_20px_rgba(204,255,0,0.3)] hover:shadow-[0_0_30px_rgba(204,255,0,0.4)] transition-all duration-300 w-full sm:w-[360px] h-[76px] whitespace-nowrap">
+                <span className="flex items-center justify-center w-full">
+                  Fight My Ticket Now
+                  <ArrowRight className="ml-2 h-5 w-5 flex-shrink-0" />
+                </span>
+              </Button>
             </motion.div>
 
              <motion.div initial={{
@@ -118,7 +105,7 @@ const HeroSection = () => {
           }} className="bg-white/5 rounded-xl p-4 border border-white/10 mb-8 max-w-md mx-auto lg:mx-0 backdrop-blur-sm">
               <p className="text-white/60 text-sm text-center lg:text-left flex gap-3 items-start">
                  <span className="bg-[#007BFF]/20 text-[#007BFF] text-xs font-bold px-2 py-0.5 rounded uppercase mt-0.5 shrink-0">Note</span>
-                 <span>Need help fast on a budget? The <b>$19 AI Strategy</b> is perfect for quick guidance, while our <b>$49 Service</b> provides full attorney protection.</span>
+                 <span>After your scan, choose the <b>$19 AI Strategy</b> or upgrade to <b>$49 Law Firm Review</b> for full support.</span>
               </p>
             </motion.div>
 

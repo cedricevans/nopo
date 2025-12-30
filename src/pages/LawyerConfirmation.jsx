@@ -3,7 +3,7 @@ import React from 'react';
 import { Helmet } from 'react-helmet-async';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { Check, ShieldCheck, Mail, Phone, Calendar } from 'lucide-react';
+import { Check, ShieldCheck, Mail } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
 const LawyerConfirmation = () => {
@@ -34,7 +34,7 @@ const LawyerConfirmation = () => {
      return (
         <div className="min-h-screen bg-[#0A1A2F] flex items-center justify-center text-white">
            <div className="text-center">
-              <p>No lawyer selected.</p>
+              <p>No firm selected.</p>
               <Button onClick={() => navigate('/upload-ticket')} className="mt-4">Start Over</Button>
            </div>
         </div>
@@ -44,7 +44,7 @@ const LawyerConfirmation = () => {
   return (
     <>
       <Helmet>
-        <title>Representation Confirmed - Citation Nation</title>
+        <title>Firm Review Confirmed - Citation Nation</title>
       </Helmet>
 
       <main className="min-h-screen pt-24 pb-16 bg-[#0A1A2F]">
@@ -59,10 +59,10 @@ const LawyerConfirmation = () => {
                   <Check className="w-10 h-10 text-[#0A1A2F] stroke-[3px]" />
                </motion.div>
                <h1 className="text-3xl sm:text-4xl font-black text-white mb-4">
-                  Attorney <span className="text-[#C6FF4D]">Assigned</span>
+                  Firm <span className="text-[#C6FF4D]">Review Started</span>
                </h1>
                <p className="text-lg text-white/70">
-                  Your case has been successfully submitted to your chosen attorney.
+                  Your case has been submitted to our partner firm for review.
                </p>
             </div>
 
@@ -85,7 +85,7 @@ const LawyerConfirmation = () => {
                      <div className="w-8 h-8 rounded-full bg-[#007BFF]/20 flex items-center justify-center text-[#007BFF] flex-shrink-0">1</div>
                      <div>
                         <h4 className="text-white font-bold">Case Review</h4>
-                        <p className="text-white/60 text-sm">{lawyer.name} will review your ticket details ({caseData?.violationCode}) within 24 hours.</p>
+                        <p className="text-white/60 text-sm">Our firm will review your ticket details ({caseData?.violationCode}) within 24 hours.</p>
                      </div>
                   </div>
 
@@ -93,15 +93,15 @@ const LawyerConfirmation = () => {
                      <div className="w-8 h-8 rounded-full bg-[#007BFF]/20 flex items-center justify-center text-[#007BFF] flex-shrink-0">2</div>
                      <div>
                         <h4 className="text-white font-bold">Initial Consultation</h4>
-                        <p className="text-white/60 text-sm">You will receive a secure message or call to discuss strategy.</p>
+                        <p className="text-white/60 text-sm">You will receive a secure message or call from the firm to discuss strategy.</p>
                      </div>
                   </div>
 
                   <div className="flex gap-4">
                      <div className="w-8 h-8 rounded-full bg-[#007BFF]/20 flex items-center justify-center text-[#007BFF] flex-shrink-0">3</div>
                      <div>
-                        <h4 className="text-white font-bold">Court Appearance</h4>
-                        <p className="text-white/60 text-sm">Your attorney will file an appearance for the date: <span className="text-[#C6FF4D]">{formatDate(caseData?.courtDate)}</span>.</p>
+                        <h4 className="text-white font-bold">Recommended Action Plan</h4>
+                        <p className="text-white/60 text-sm">We’ll outline the next steps for your court date: <span className="text-[#C6FF4D]">{formatDate(caseData?.courtDate)}</span>.</p>
                      </div>
                   </div>
                </div>
@@ -115,7 +115,7 @@ const LawyerConfirmation = () => {
                     onClick={handleMessageAttorney}
                     className="bg-[#007BFF] text-white hover:bg-[#007BFF]/90"
                >
-                  <Mail className="w-4 h-4 mr-2" /> Message Attorney
+                  <Mail className="w-4 h-4 mr-2" /> Message Firm
                </Button>
             </div>
 

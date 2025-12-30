@@ -21,7 +21,6 @@ const Confirmation = () => {
   const { toast } = useToast();
   const { caseData } = location.state || {};
   
-  const isLegalFullPlan = caseData?.planType === 'legal-full';
 
   useEffect(() => {
     if (!caseData) {
@@ -164,43 +163,27 @@ const Confirmation = () => {
           </motion.div>
 
           <div className="mt-12 text-center print:hidden">
-            {isLegalFullPlan ? (
-              <div className="bg-[#C6FF4D]/10 border border-[#C6FF4D] rounded-xl p-8 max-w-2xl mx-auto">
-                <h3 className="text-white font-bold text-2xl mb-2">Complete Your Legal Defense</h3>
-                <p className="text-white/70 mb-6">
-                  You've unlocked full legal representation. The final step is to select your preferred attorney from our network.
-                </p>
-                <Button 
-                  onClick={handleUpgradeToLawyer}
-                  className="bg-[#C6FF4D] text-[#0A1A2F] hover:bg-[#C6FF4D]/90 font-bold py-6 px-8 rounded-full text-lg shadow-[0_0_20px_rgba(198,255,77,0.3)] w-full sm:w-auto"
-                >
-                  Select Your Attorney Now
-                  <ArrowRight className="ml-2 h-5 w-5" />
-                </Button>
+            <div className="max-w-2xl mx-auto">
+              <h3 className="text-white font-bold text-xl mb-4">Want a law firm to handle this for you?</h3>
+              <div className="bg-white/5 border border-white/10 rounded-xl p-6 flex flex-col sm:flex-row items-center justify-between gap-6">
+                  <div className="text-left">
+                      <div className="flex items-center gap-2 mb-2">
+                           <ShieldCheck className="text-[#C6FF4D] h-5 w-5" />
+                           <h4 className="font-bold text-white">Law Firm Review - $49</h4>
+                      </div>
+                      <p className="text-sm text-white/60">
+                          Send your scanned ticket to our firm for a full review and next steps.
+                      </p>
+                  </div>
+                  <Button 
+                      onClick={handleUpgradeToLawyer}
+                      className="bg-transparent border border-[#C6FF4D] text-[#C6FF4D] hover:bg-[#C6FF4D] hover:text-[#0A1A2F] font-bold"
+                  >
+                      Send to Our Firm
+                      <ArrowRight className="ml-2 h-4 w-4" />
+                  </Button>
               </div>
-            ) : (
-              <div className="max-w-2xl mx-auto">
-                <h3 className="text-white font-bold text-xl mb-4">Want a professional to handle this for you?</h3>
-                <div className="bg-white/5 border border-white/10 rounded-xl p-6 flex flex-col sm:flex-row items-center justify-between gap-6">
-                    <div className="text-left">
-                        <div className="flex items-center gap-2 mb-2">
-                             <ShieldCheck className="text-[#C6FF4D] h-5 w-5" />
-                             <h4 className="font-bold text-white">Upgrade to Full Legal Defense</h4>
-                        </div>
-                        <p className="text-sm text-white/60">
-                            We'll credit your $19 payment towards hiring a local attorney.
-                        </p>
-                    </div>
-                    <Button 
-                        onClick={handleUpgradeToLawyer}
-                        className="bg-transparent border border-[#C6FF4D] text-[#C6FF4D] hover:bg-[#C6FF4D] hover:text-[#0A1A2F] font-bold"
-                    >
-                        Find an Attorney
-                        <ArrowRight className="ml-2 h-4 w-4" />
-                    </Button>
-                </div>
-              </div>
-            )}
+            </div>
           </div>
 
         </div>

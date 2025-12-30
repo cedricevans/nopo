@@ -4,7 +4,7 @@ import { motion } from 'framer-motion';
 
 /**
  * How It Works Section Component
- * Updated to reflect the bifurcated path (DIY or Done-For-You)
+ * Updated to reflect the streamlined scan-to-strategy flow
  */
 const HowItWorksSection = () => {
   const steps = [
@@ -22,14 +22,14 @@ const HowItWorksSection = () => {
     },
     {
       icon: Scale,
-      title: '3. Choose Path',
-      description: 'Select either our DIY Strategy Guide or hire our Legal Team.',
+      title: '3. Get Your Strategy',
+      description: 'Receive your AI strategy and review the recommended next steps.',
       color: '#007BFF',
     },
     {
       icon: CheckCircle,
       title: '4. Fight & Win',
-      description: 'Present your defense or let us handle court. Save money & points.',
+      description: 'Follow the plan or upgrade to firm review for full support.',
       color: '#C6FF4D',
     },
   ];
