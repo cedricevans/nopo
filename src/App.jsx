@@ -9,6 +9,11 @@ import UploadTicket from '@/pages/UploadTicket';
 import Intake from '@/pages/Intake';
 import Tracker from '@/pages/Tracker';
 import Pricing from '@/pages/Pricing';
+import Eligibility from '@/pages/Eligibility';
+import Attorney from '@/pages/Attorney';
+import CaseProgress from '@/pages/CaseProgress';
+import Dashboard from '@/pages/Dashboard';
+import Outcome from '@/pages/Outcome';
 import HowItWorks from '@/pages/HowItWorks';
 import About from '@/pages/About';
 import AboutThisApp from '@/pages/AboutThisApp';
@@ -41,8 +46,13 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="/upload-ticket" element={<UploadTicket />} />
             <Route path="/intake" element={<Intake />} />
+            <Route path="/eligibility" element={<Eligibility />} />
             <Route path="/tracker" element={<Tracker />} />
             <Route path="/pricing" element={<Pricing />} />
+            <Route path="/attorney" element={<Attorney />} />
+            <Route path="/case-progress" element={<CaseProgress />} />
+            <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/outcome" element={<Outcome />} />
             <Route path="/how-it-works" element={<HowItWorks />} />
             <Route path="/about" element={<About />} />
             <Route path="/about-app" element={<AboutThisApp />} />

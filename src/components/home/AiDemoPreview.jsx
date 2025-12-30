@@ -34,10 +34,10 @@ const AiDemoPreview = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12">
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-white mb-4">
-            See How <span className="text-[#C6FF4D]">It Works</span>
+            Visual <span className="text-[#C6FF4D]">Preview</span>
           </h2>
           <p className="text-lg text-white/70 max-w-2xl mx-auto">
-            Watch how we analyze tickets and generate winning strategies
+            A quick look at how your case moves from scan to resolution
           </p>
         </div>
 
@@ -57,7 +57,7 @@ const AiDemoPreview = () => {
                     Preview The Process
                   </h3>
                   <p className="text-white/70 mb-8">
-                    Click below to see a sample ticket analysis
+                    See a sample case card and outcome preview
                   </p>
                   <Button
                     onClick={handleDemo}
@@ -153,12 +153,12 @@ const AiDemoPreview = () => {
                   </div>
 
                   <div className="text-center pt-4">
-                    <Button
-                      onClick={() => navigate('/upload-ticket')}
-                      className="bg-[#C6FF4D] text-[#0A1A2F] hover:bg-[#C6FF4D]/90 font-bold px-8 py-4 rounded-full text-lg"
-                    >
-                      Start Your Free Intake
-                    </Button>
+                  <Button
+                    onClick={() => navigate('/upload-ticket')}
+                    className="bg-[#C6FF4D] text-[#0A1A2F] hover:bg-[#C6FF4D]/90 font-bold px-8 py-4 rounded-full text-lg"
+                  >
+                    Scan or Upload Your Ticket
+                  </Button>
                   </div>
                 </motion.div>
               )}

@@ -36,13 +36,9 @@ const HeroSection = () => {
                 #1 Traffic Ticket Defense Service
               </div>
               <h1 className="text-4xl sm:text-5xl lg:text-7xl font-black text-white leading-[1.1] mb-6 tracking-tight">
-                We'll Fight Your
+                Got a Ticket?
                 <br />
-                Traffic Ticket
-                <br />
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#007BFF] to-[#C6FF4D]">
-                  For You starting at $19
-                </span>
+                We&apos;ve Got You.
               </h1>
             </motion.div>
 
@@ -58,12 +54,12 @@ const HeroSection = () => {
           }} className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 mb-6 text-[#C6FF4D] text-sm font-semibold">
                 <div className="flex items-center gap-2">
                    <CheckCircle2 className="w-4 h-4" />
-                   <span>Professional Attorneys</span>
+                   <span>Clean, confident, friendly</span>
                 </div>
                 <div className="hidden sm:block text-white/20">•</div>
                 <div className="flex items-center gap-2">
                    <CheckCircle2 className="w-4 h-4" />
-                   <span>No Court Appearances</span>
+                   <span>Clear next steps in minutes</span>
                 </div>
             </motion.div>
 
@@ -76,7 +72,7 @@ const HeroSection = () => {
           }} transition={{
             duration: 0.6,
             delay: 0.2
-          }} className="text-lg sm:text-xl text-white/70 mb-8 max-w-2xl mx-auto lg:mx-0 font-medium leading-relaxed">Start with the $19 AI strategy for fast, actionable guidance, or upgrade to the $49 firm review for hands-on support.</motion.p>
+          }} className="text-lg sm:text-xl text-white/70 mb-8 max-w-2xl mx-auto lg:mx-0 font-medium leading-relaxed">Scan your citation — we&apos;ll take care of the rest.</motion.p>
 
             <motion.div initial={{
             opacity: 0,
@@ -87,27 +83,36 @@ const HeroSection = () => {
           }} transition={{
             duration: 0.6,
             delay: 0.4
-          }} className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 mb-8 lg:mb-8">
-              <Button onClick={() => navigate('/upload-ticket')} className="bg-[#CCFF00] hover:bg-[#CCFF00]/90 text-[#0A1A2F] font-bold text-lg px-8 py-7 rounded-full shadow-[0_0_20px_rgba(204,255,0,0.3)] hover:shadow-[0_0_30px_rgba(204,255,0,0.4)] transition-all duration-300 w-full sm:w-[360px] h-[76px] whitespace-nowrap">
+          }} className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 mb-6 lg:mb-6">
+              <Button onClick={() => navigate('/upload-ticket')} className="bg-[#CCFF00] hover:bg-[#CCFF00]/90 text-[#0A1A2F] font-bold text-base sm:text-lg px-6 sm:px-8 py-6 sm:py-7 rounded-full shadow-[0_0_20px_rgba(204,255,0,0.3)] hover:shadow-[0_0_30px_rgba(204,255,0,0.4)] transition-all duration-300 w-full sm:w-auto h-[64px] sm:h-[76px] whitespace-nowrap">
                 <span className="flex items-center justify-center w-full">
-                  Fight My Ticket Now
+                  Scan or Upload Your Ticket
                   <ArrowRight className="ml-2 h-5 w-5 flex-shrink-0" />
                 </span>
               </Button>
+              <Button onClick={() => navigate('/upload-ticket')} variant="outline" className="border-white/30 text-white hover:bg-white/10 font-semibold text-sm sm:text-base px-5 sm:px-6 py-5 rounded-full w-full sm:w-auto h-[64px] whitespace-nowrap">
+                Check Ticket Eligibility
+              </Button>
             </motion.div>
 
-             <motion.div initial={{
-            opacity: 0
+            <motion.div initial={{
+            opacity: 0,
+            y: 20
           }} animate={{
-            opacity: 1
+            opacity: 1,
+            y: 0
           }} transition={{
-            delay: 0.6
-          }} className="bg-white/5 rounded-xl p-4 border border-white/10 mb-8 max-w-md mx-auto lg:mx-0 backdrop-blur-sm">
-              <p className="text-white/60 text-sm text-center lg:text-left flex gap-3 items-start">
-                 <span className="bg-[#007BFF]/20 text-[#007BFF] text-xs font-bold px-2 py-0.5 rounded uppercase mt-0.5 shrink-0">Note</span>
-                 <span>After your scan, choose the <b>$19 AI Strategy</b> or upgrade to <b>$49 Law Firm Review</b> for full support.</span>
-              </p>
+            duration: 0.6,
+            delay: 0.5
+          }} className="flex justify-center lg:justify-start mb-8">
+              <Button onClick={() => navigate('/tracker')} variant="ghost" className="text-white/70 hover:text-white hover:bg-white/10 font-semibold">
+                Check Ticket Status
+              </Button>
             </motion.div>
+
+            <p className="text-white/60 text-xs sm:text-sm mb-6 text-center lg:text-left">
+              Eligibility is based on your citation details. Start by scanning your ticket.
+            </p>
 
             {/* Trust Badges */}
             <motion.div initial={{
@@ -124,7 +129,7 @@ const HeroSection = () => {
                 </div>
                 <div className="text-left">
                     <div className="flex text-[#FFD700]">★★★★★</div>
-                    <p className="text-white/50 text-xs font-medium">Trusted by 50,000+ drivers</p>
+                    <p className="text-white/50 text-xs font-medium">Trusted by drivers nationwide</p>
                 </div>
             </motion.div>
           </div>

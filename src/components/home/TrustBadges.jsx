@@ -1,5 +1,5 @@
 import React from 'react';
-import { Shield, Award, Users, Lock } from 'lucide-react';
+import { ShieldCheck, MessageCircle, Gavel, Award, CheckCircle2 } from 'lucide-react';
 
 /**
  * Trust Badges Component
@@ -7,16 +7,17 @@ import { Shield, Award, Users, Lock } from 'lucide-react';
  */
 const TrustBadges = () => {
   const badges = [
-    { icon: Shield, text: 'SSL Encrypted' },
-    { icon: Award, text: 'BBB A+ Rated' },
-    { icon: Users, text: '50,000+ Clients' },
-    { icon: Lock, text: 'Privacy Protected' },
+    { icon: ShieldCheck, text: 'Real, Licensed, Experienced Attorneys' },
+    { icon: MessageCircle, text: 'Clear Communication. No Surprises.' },
+    { icon: Gavel, text: 'No Court Appearances (Most Cases)' },
+    { icon: Award, text: 'Winning Traffic Cases Since 2017' },
+    { icon: CheckCircle2, text: 'Over 100,000 Tickets Successfully Defended' },
   ];
 
   return (
     <section className="bg-[#0A1A2F] py-12 border-y border-white/10">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+        <div className="grid grid-cols-2 md:grid-cols-5 gap-6">
           {badges.map((badge, index) => (
             <div
               key={index}

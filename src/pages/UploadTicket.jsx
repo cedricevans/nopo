@@ -5,71 +5,11 @@ import { Upload as UploadIcon, FileText, CheckCircle, AlertCircle, ArrowRight } 
 import { Button } from '@/components/ui/button';
 import { useToast } from '@/components/ui/use-toast';
 import { useNavigate } from 'react-router-dom';
-import TicketAnalysisResults from '@/components/upload/TicketAnalysisResults';
-
-// Updated demo data to match the provided ticket image perfectly
-const demoScanResult = {
-  ticketImage: "https://horizons-cdn.hostinger.com/5227e500-5420-4761-b19c-43c983dcdd87/be2d26654557baf5a6fe678c8e139339.png",
-  ticket: {
-    state: 'FL',
-    type: 'Uniform Traffic Citation',
-    citationNumber: 'A1234XYZ',
-    agency: 'FHP',
-    county: 'MIAMI-DADE',
-    issuedAt: { date: '2024-01-15', time: '14:35' },
-  },
-  driver: {
-    firstName: 'JOHN',
-    middleName: 'D.',
-    lastName: 'SMITH',
-    fullName: 'JOHN D. SMITH',
-    address: '1234 OCEAN DR',
-    city: 'MIAMI BEACH',
-    state: 'FL',
-    zip: '33139',
-    dateOfBirth: '1985-05-12',
-    sex: 'M',
-    dlNumber: 'S123-456-78-901-0',
-    dlState: 'FL',
-    dlClass: 'E',
-  },
-  vehicle: {
-    year: '2018',
-    make: 'FORD',
-    color: 'RED',
-    plate: 'ABC123',
-    plateState: 'FL',
-    vin: '1FAFPOL3X9A123456',
-    insurance: 'GEICO',
-  },
-  violation: {
-    statute: '316.183(2)',
-    description: 'SPEEDING - 80 MPH in a 45 MPH Zone',
-    actualSpeedMph: 80,
-    postedSpeedMph: 45,
-    speedOverMph: 35,
-    location: 'I-95 Northbound, Mile Marker 10',
-    criminal: false,
-    accident: false,
-  },
-  court: {
-    appearanceRequired: true,
-    courtDate: '2024-02-10',
-    courtName: 'MIAMI-DADE COUNTY COURT',
-    courtAddress: '1351 NW 12TH ST, MIAMI, FL 33125',
-  },
-  ai: {
-    confidence: 0.98,
-    notes: ['High confidence extraction.', 'Mandatory court appearance detected due to speed > 30mph over limit.'],
-    quickSummary: 'Florida speeding citation, 80 MPH in a 45 MPH zone, Miami-Dade. Requires court appearance.',
-  },
-};
 
 const UploadTicket = () => {
   const [file, setFile] = useState(null);
   const [isAnalyzing, setIsAnalyzing] = useState(false);
   const [analysisComplete, setAnalysisComplete] = useState(false);
-  const [analysisData, setAnalysisData] = useState(null);
   const [analysisStep, setAnalysisStep] = useState(0);
   const analysisSteps = [
     'Reading ticket image...',
@@ -96,7 +36,7 @@ const UploadTicket = () => {
 
     setFile(selectedFile);
     setAnalysisComplete(false);
-    setAnalysisData(null);
+    setAnalysisStep(0);
 
     toast({
       variant: 'success',
@@ -125,7 +65,6 @@ const UploadTicket = () => {
     setTimeout(() => {
       clearInterval(stepInterval);
       setIsAnalyzing(false);
-      setAnalysisData(demoScanResult);
       setAnalysisComplete(true);
 
       toast({
@@ -139,7 +78,7 @@ const UploadTicket = () => {
   const handleReset = () => {
     setAnalysisComplete(false);
     setFile(null);
-    setAnalysisData(null);
+    setAnalysisStep(0);
   };
 
   return (
@@ -166,9 +105,14 @@ const UploadTicket = () => {
             <>
               <div className="text-center mb-12">
                 <h1 className="text-4xl sm:text-5xl font-black text-white mb-4">
-                  Upload Your <span className="text-[#C6FF4D]">Traffic Ticket</span>
+                  Upload Your <span className="text-[#C6FF4D]">Citation</span>
                 </h1>
-                <p className="text-lg text-white/70">Get AI-powered analysis and defense strategy in minutes</p>
+                <p className="text-lg text-white/70">
+                  Take a photo or upload your ticket. We&apos;ll automatically extract the details and evaluate your case.
+                </p>
+                <p className="text-sm text-white/60 mt-3">
+                  Don&apos;t worry — every ticket is reviewed by our team before moving forward.
+                </p>
               </div>
 
               <div className="bg-white/5 backdrop-blur-lg border border-white/10 rounded-3xl p-8 sm:p-12 mb-8 shadow-2xl">
@@ -217,7 +161,7 @@ const UploadTicket = () => {
                         Scanning & Extracting Data...
                       </div>
                     ) : (
-                      'Start AI Analysis'
+                      'Analyze My Ticket'
                     )}
                   </Button>
                   {isAnalyzing && (
@@ -263,11 +207,30 @@ const UploadTicket = () => {
               </div>
             </>
           ) : (
-            <TicketAnalysisResults
-              analysis={analysisData}
-              ticketFile={file}
-              onReset={handleReset}
-            />
+            <div className="bg-white/5 backdrop-blur-lg border border-white/10 rounded-3xl p-8 sm:p-12 shadow-2xl text-center">
+              <CheckCircle className="h-16 w-16 text-[#C6FF4D] mx-auto mb-4" />
+              <h2 className="text-3xl sm:text-4xl font-black text-white mb-4">
+                Ticket Uploaded
+              </h2>
+              <p className="text-white/70 mb-8">
+                We&apos;re reviewing your citation details now. Continue to see your eligibility.
+              </p>
+              <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+                <Button
+                  onClick={() => navigate('/eligibility')}
+                  className="bg-[#C6FF4D] text-[#0A1A2F] hover:bg-[#C6FF4D]/90 font-bold py-5 px-10 rounded-full"
+                >
+                  Continue to Eligibility
+                </Button>
+                <Button
+                  variant="ghost"
+                  onClick={handleReset}
+                  className="text-white/60 hover:text-white"
+                >
+                  Upload another ticket
+                </Button>
+              </div>
+            </div>
           )}
         </div>
       </main>

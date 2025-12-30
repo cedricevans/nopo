@@ -12,11 +12,18 @@ import { useToast } from '@/components/ui/use-toast';
 
 const Tracker = () => {
   const [searchParams] = useSearchParams();
-  const [ticketNumber, setTicketNumber] = useState('');
-  const [email, setEmail] = useState('');
+  const [ticketNumber, setTicketNumber] = useState('CN-104928');
+  const [email, setEmail] = useState('joe.doe@mail.com');
   const [loading, setLoading] = useState(false);
   const [ticketData, setTicketData] = useState(null);
   const { toast } = useToast();
+
+  const demoTicket = {
+    ticket_number: 'CN-104928',
+    email: 'joe.doe@mail.com',
+    status: 'defense_built',
+    created_at: new Date(Date.now() - 1000 * 60 * 60 * 24 * 6).toISOString()
+  };
 
   useEffect(() => {
     const ticketParam = searchParams.get('ticket');
@@ -33,6 +40,13 @@ const Tracker = () => {
     setLoading(true);
     setTicketData(null);
     try {
+        if (
+          tNum.trim().toLowerCase() === demoTicket.ticket_number.toLowerCase() &&
+          tEmail.trim().toLowerCase() === demoTicket.email.toLowerCase()
+        ) {
+            setTicketData(demoTicket);
+            return;
+        }
         const { data, error } = await supabase
             .from('cases')
             .select('*')
