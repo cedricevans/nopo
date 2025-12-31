@@ -15,6 +15,7 @@ import CaseProgress from '@/pages/CaseProgress';
 import Dashboard from '@/pages/Dashboard';
 import Outcome from '@/pages/Outcome';
 import CaseResults from '@/pages/CaseResults';
+import VoiceAssistant from '@/pages/VoiceAssistant';
 import HowItWorks from '@/pages/HowItWorks';
 import About from '@/pages/About';
 import AboutThisApp from '@/pages/AboutThisApp';
@@ -55,6 +56,7 @@ function App() {
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/outcome" element={<Outcome />} />
             <Route path="/case-results" element={<CaseResults />} />
+            <Route path="/voice" element={<VoiceAssistant />} />
             <Route path="/how-it-works" element={<HowItWorks />} />
             <Route path="/about" element={<About />} />
             <Route path="/about-app" element={<AboutThisApp />} />

@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { ArrowRight, Shield, Upload, CheckCircle2, Gavel } from 'lucide-react';
 import { motion } from 'framer-motion';
+import VoiceWidget from '@/components/VoiceWidget';
 
 /**
  * Hero Section Component
@@ -85,16 +86,16 @@ const HeroSection = () => {
           }} transition={{
             duration: 0.6,
             delay: 0.4
-          }} className="flex flex-col sm:flex-row sm:flex-nowrap items-center justify-center lg:justify-start gap-3 sm:gap-4 mb-6 lg:mb-6">
+          }} className="flex flex-col sm:flex-row sm:flex-nowrap items-center justify-center lg:justify-start gap-3 sm:gap-4 mb-4 lg:mb-4">
               <Button onClick={() => navigate('/upload-ticket')} className="bg-[#CCFF00] hover:bg-[#CCFF00]/90 text-[#0A1A2F] font-bold text-base sm:text-lg px-6 sm:px-7 py-6 sm:py-7 rounded-full shadow-[0_0_20px_rgba(204,255,0,0.3)] hover:shadow-[0_0_30px_rgba(204,255,0,0.4)] transition-all duration-300 w-full sm:w-auto h-[64px] sm:h-[76px] whitespace-nowrap">
                 <span className="flex items-center justify-center w-full">
                   Scan or Upload Your Ticket
                   <ArrowRight className="ml-2 h-5 w-5 flex-shrink-0" />
                 </span>
               </Button>
-              <Button onClick={() => navigate('/upload-ticket')} variant="outline" className="border-white/30 text-white hover:bg-white/10 font-semibold text-xs sm:text-sm px-4 sm:px-5 py-5 rounded-full w-full sm:w-auto h-[64px] whitespace-nowrap">
-                Check Ticket Eligibility (takes ~5 seconds)
-              </Button>
+              <div className="w-full sm:w-auto">
+                <VoiceWidget />
+              </div>
             </motion.div>
 
             <motion.div initial={{
