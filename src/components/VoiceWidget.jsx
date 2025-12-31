@@ -88,6 +88,7 @@ const VoiceWidget = () => {
   const sourcesRef = useRef(new Set());
   const sessionRef = useRef(null);
   const transcriptionRef = useRef({ user: '', assistant: '' });
+  const greetedRef = useRef(false);
 
   const stopAllAudio = useCallback(() => {
     sourcesRef.current.forEach((source) => {
@@ -107,6 +108,7 @@ const VoiceWidget = () => {
     setStatus(ConnectionStatus.IDLE);
     setIsListening(false);
     setStatusMessage('Tap to start');
+    greetedRef.current = false;
     stopAllAudio();
   }, [stopAllAudio]);
 
@@ -118,8 +120,8 @@ const VoiceWidget = () => {
       const hasVisited = localStorage.getItem('nopoVoiceVisited') === 'true';
       const storedName = localStorage.getItem('nopoVoiceName');
       const greetingPrompt = hasVisited
-        ? `Welcome back${storedName ? `, ${storedName}` : ''}. Ask if they want to check their status. Then ask for their name or phone number.`
-        : 'Give a short friendly greeting. Ask their name or phone number so you can check status. Mention you can also help upload a ticket or explain how NOPO works.';
+        ? `Welcome back${storedName ? `, ${storedName}` : ''}. Ask them for their name and phone number to look up their ticket. If they want a status check, proceed.`
+        : 'Give a short friendly greeting. Ask their name and phone number so you can check status. Mention you can also help upload a ticket or explain how NOPO works.';
 
       localStorage.setItem('nopoVoiceVisited', 'true');
       setStatusMessage('Connecting...');
@@ -185,7 +187,8 @@ const VoiceWidget = () => {
             scriptProcessor.connect(inputAudioContextRef.current.destination);
 
             sessionPromise.then((session) => {
-              if (session?.sendRealtimeInput) {
+              if (session?.sendRealtimeInput && !greetedRef.current) {
+                greetedRef.current = true;
                 session.sendRealtimeInput({ text: greetingPrompt });
               }
             });
