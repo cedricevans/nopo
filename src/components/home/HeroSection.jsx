@@ -75,7 +75,23 @@ const HeroSection = () => {
           }} transition={{
             duration: 0.6,
             delay: 0.2
-          }} className="text-lg sm:text-xl text-white/70 mb-8 max-w-2xl mx-auto lg:mx-0 font-medium leading-relaxed">Scan your citation — we&apos;ll take care of the rest.</motion.p>
+          }} className="text-lg sm:text-xl text-white/70 mb-4 max-w-2xl mx-auto lg:mx-0 font-medium leading-relaxed">Scan your citation — we&apos;ll take care of the rest.</motion.p>
+
+            <motion.div initial={{
+            opacity: 0,
+            y: 20
+          }} animate={{
+            opacity: 1,
+            y: 0
+          }} transition={{
+            duration: 0.6,
+            delay: 0.3
+          }} className="flex items-center justify-center lg:justify-start mb-6">
+              <p className="text-white/70 text-sm sm:text-base font-semibold tracking-wide">
+                <span className="uppercase text-white/50 text-xs sm:text-sm tracking-[0.2em]">Starting at</span>
+                <span className="ml-2 text-[#CCFF00] text-xl sm:text-2xl font-black">$49</span>
+              </p>
+            </motion.div>
 
             <motion.div initial={{
             opacity: 0,

@@ -281,7 +281,7 @@ const VoiceWidget = () => {
       <span className={`flex items-center justify-center w-8 h-8 rounded-full bg-[#C6FF4D]/20 text-[#C6FF4D] ${isListening ? 'animate-pulse' : ''}`}>
         <Mic className="w-4 h-4" />
       </span>
-      Speak with NOPO
+      Talk to NOPO (Voice AI)
       <span className="flex items-end gap-1 h-4">
         {[8, 12, 10, 14, 9].map((height, idx) => (
           <span
@@ -293,7 +293,7 @@ const VoiceWidget = () => {
           />
         ))}
       </span>
-      <span className="sr-only">{statusMessage}</span>
+      <span className="sr-only">Tap to speak. I can check your case in seconds.</span>
     </button>
   );
 };
