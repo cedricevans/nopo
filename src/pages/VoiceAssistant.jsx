@@ -87,6 +87,11 @@ const VoiceAssistant = () => {
   const startSession = async () => {
     try {
       setStatus(ConnectionStatus.CONNECTING);
+      const hasVisited = localStorage.getItem('nopoVoiceVisited') === 'true';
+      const storedName = localStorage.getItem('nopoVoiceName');
+      const greetingPrompt = hasVisited
+        ? `Give a warm, varied welcome-back greeting${storedName ? ` that uses their name (${storedName})` : ''}. It must include a welcome-back style message and can mention timely context (like a holiday) if relevant. Then ask for their name and phone number to look up their ticket. Mention you can also help upload a ticket or explain how NOPO works.`
+        : 'Give a short friendly greeting. Ask their name and phone number so you can check status. Mention you can also help upload a ticket or explain how NOPO works.';
 
       const ai = new GoogleGenAI({ apiKey: import.meta.env.VITE_GEMINI_API_KEY });
 
@@ -134,6 +139,7 @@ const VoiceAssistant = () => {
           onopen: () => {
             setStatus(ConnectionStatus.CONNECTED);
             setIsListening(true);
+            localStorage.setItem('nopoVoiceVisited', 'true');
 
             const source = inputAudioContextRef.current.createMediaStreamSource(stream);
             const scriptProcessor = inputAudioContextRef.current.createScriptProcessor(4096, 1, 1);
@@ -148,6 +154,12 @@ const VoiceAssistant = () => {
 
             source.connect(scriptProcessor);
             scriptProcessor.connect(inputAudioContextRef.current.destination);
+
+            sessionPromise.then((session) => {
+              if (session?.sendRealtimeInput) {
+                session.sendRealtimeInput({ text: greetingPrompt });
+              }
+            });
           },
           onmessage: async (message) => {
             if (message.toolCall) {

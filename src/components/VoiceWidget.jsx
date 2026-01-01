@@ -120,7 +120,7 @@ const VoiceWidget = () => {
       const hasVisited = localStorage.getItem('nopoVoiceVisited') === 'true';
       const storedName = localStorage.getItem('nopoVoiceName');
       const greetingPrompt = hasVisited
-        ? `Welcome back${storedName ? `, ${storedName}` : ''}. Ask them for their name and phone number to look up their ticket. If they want a status check, proceed.`
+        ? `Give a warm, varied welcome-back greeting${storedName ? ` that uses their name (${storedName})` : ''}. It must include a welcome-back style message and can mention timely context (like a holiday) if relevant. Then ask for their name and phone number to look up their ticket. Mention you can also help upload a ticket or explain how NOPO works.`
         : 'Give a short friendly greeting. Ask their name and phone number so you can check status. Mention you can also help upload a ticket or explain how NOPO works.';
 
       localStorage.setItem('nopoVoiceVisited', 'true');
