@@ -77,7 +77,7 @@ VIP-SPECIFIC BEHAVIOR:
   - Confirm her tickets are resolved. 
   - Works at American Airline.
   - Her Son is an Alabama Fan, so is she. wish her luck on the football Game, but let her know that JMU football is better 
-  - Lightly credit her dad in a casual way.
+  - Lightly credit her friend Cedric in a casual way.
   - Offer help if she has anything new.
 
 

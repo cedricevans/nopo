@@ -60,19 +60,18 @@ const TicketAnalysisResults = ({ analysis, ticketFile, onReset }) => {
     }
     setContactError('');
     const caseData = normalizeCaseData(data);
-    const hasPreferredCity = nearestCity && nearestCity.name && nearestCity.name !== 'your area';
-    navigate('/confirmation', {
+    const contactPayload = {
+      fullName: caseData.firstName || caseData.lastName ? `${caseData.firstName} ${caseData.lastName}`.trim() : '',
+      email: contactEmail,
+      phone: contactPhone
+    };
+    localStorage.setItem('citationNationContact', JSON.stringify(contactPayload));
+    if (!localStorage.getItem('citationNationCaseId')) {
+      localStorage.setItem('citationNationCaseId', caseNumber);
+    }
+    navigate('/eligibility', {
       state: {
-        caseData: {
-          ...caseData,
-          caseNumber,
-          contactEmail,
-          contactPhone,
-          planType: 'ai-basic',
-          ...(hasPreferredCity
-            ? { preferredCity: nearestCity.name, preferredState: nearestCity.state || '' }
-            : {})
-        },
+        caseData,
         ticketImage: data.ticketImage || null,
         flow: 'ai-strategy'
       }
@@ -174,6 +173,12 @@ const TicketAnalysisResults = ({ analysis, ticketFile, onReset }) => {
         </p>
       </div>
 
+      {!data?.aiMeta?.usedAi && (
+        <div className="bg-white/10 border border-white/10 rounded-2xl p-4 text-white/70 text-sm">
+          <span className="font-semibold text-white">AI is cooling down:</span> Showing the built-in strategy for now.
+        </div>
+      )}
+
       {/* Extracted Data Summary */}
       <div className="bg-white/5 border border-white/10 rounded-2xl p-6 sm:p-8">
         <h3 className="text-xl font-bold text-white mb-6 border-b border-white/10 pb-4">Extracted Details</h3>
@@ -202,12 +207,65 @@ const TicketAnalysisResults = ({ analysis, ticketFile, onReset }) => {
             <p className="text-white/80 text-sm">{data.ai.quickSummary}</p>
           </div>
         )}
+
+        {data.ai?.sources?.length ? (
+          <div className="mt-4 text-xs text-white/60">
+            <span className="font-semibold text-white/70">Sources:</span>{' '}
+            {data.ai.sources.map((source, index) => (
+              <a
+                key={`${source.url}-${index}`}
+                href={source.url}
+                target="_blank"
+                rel="noreferrer"
+                className="text-[#C6FF4D] hover:text-[#C6FF4D]/80 underline mr-3"
+              >
+                {source.label || `Source ${index + 1}`}
+              </a>
+            ))}
+          </div>
+        ) : null}
+
+        {data.ai?.strategy?.length ? (
+          <div className="mt-6 bg-white/5 border border-white/10 rounded-lg p-4">
+            <span className="text-white/60 text-xs font-bold uppercase tracking-wider mb-3 block">Strategy Notes</span>
+            <div className="space-y-3 text-sm text-white/80">
+              {data.ai.strategy.map((item, index) => (
+                <div key={`${item.title}-${index}`}>
+                  <p className="text-white font-semibold">{item.title}</p>
+                  <p className="text-white/70">{item.detail}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        ) : null}
+
+        {data.ai?.parkingTips?.length ? (
+          <div className="mt-6 bg-[#C6FF4D]/10 border border-[#C6FF4D]/30 rounded-lg p-4">
+            <div className="flex items-center gap-2 mb-2 text-[#C6FF4D]">
+              <div className="w-7 h-7 rounded-full bg-[#C6FF4D]/20 flex items-center justify-center text-xs font-bold">
+                P
+              </div>
+              <span className="text-xs font-bold uppercase tracking-wider">Parking Ticket Playbook</span>
+            </div>
+            <p className="text-white/70 text-xs mb-3">
+              Common parking defenses: unclear signage, valid permit, meter proof, and timing errors.
+            </p>
+            <div className="space-y-3 text-sm text-white/80">
+              {data.ai.parkingTips.map((item, index) => (
+                <div key={`${item.title}-${index}`}>
+                  <p className="text-white font-semibold">{item.title}</p>
+                  <p className="text-white/70">{item.detail}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        ) : null}
       </div>
 
       <div className="bg-white/5 border border-white/10 rounded-2xl p-6 sm:p-8">
         <h3 className="text-xl font-bold text-white mb-4">Contact Details</h3>
         <p className="text-white/60 text-sm mb-6">
-          We use this to attach your strategy to Case #{caseNumber} and send updates.
+          We use this to personalize your eligibility result and send updates.
         </p>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <Input
@@ -293,10 +351,10 @@ const TicketAnalysisResults = ({ analysis, ticketFile, onReset }) => {
             className="w-full min-h-[140px] flex flex-col items-center justify-center bg-[#C6FF4D] text-[#0A1A2F] hover:bg-[#C6FF4D]/90 font-bold p-6 rounded-2xl shadow-[0_0_20px_rgba(198,255,77,0.3)] space-y-3"
           >
             <Sparkles className="h-8 w-8 mb-2" />
-            <div className="text-xl">Get AI Strategy - $19</div>
-            <span className="text-sm font-normal opacity-80">Instant defense plan + attorney review</span>
+            <div className="text-xl">Continue to Eligibility</div>
+            <span className="text-sm font-normal opacity-80">See if your ticket qualifies for defense</span>
             <div className="flex items-center text-xs font-bold uppercase tracking-wider bg-black/10 px-3 py-1 rounded-full mt-2">
-              Start Now <ArrowRight className="ml-1 w-3 h-3" />
+              Next Step <ArrowRight className="ml-1 w-3 h-3" />
             </div>
           </Button>
         </motion.div>

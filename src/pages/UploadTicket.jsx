@@ -5,17 +5,28 @@ import { Upload as UploadIcon, FileText, CheckCircle, AlertCircle, ArrowRight } 
 import { Button } from '@/components/ui/button';
 import { useToast } from '@/components/ui/use-toast';
 import { useNavigate } from 'react-router-dom';
+import TicketAnalysisResults from '@/components/upload/TicketAnalysisResults';
+import { runOcr } from '@/lib/ticketOcr';
+import { parseTicketText, buildAiAnalysis } from '@/lib/ticketAnalysis';
+import { generateAiAnalysis } from '@/lib/ticketAi';
 
 const UploadTicket = () => {
   const [file, setFile] = useState(null);
   const [isAnalyzing, setIsAnalyzing] = useState(false);
   const [analysisComplete, setAnalysisComplete] = useState(false);
   const [analysisStep, setAnalysisStep] = useState(0);
+  const [analysisProgress, setAnalysisProgress] = useState(0);
+  const [analysisData, setAnalysisData] = useState(null);
+  const [ticketPreviewUrl, setTicketPreviewUrl] = useState('');
+  const [analysisError, setAnalysisError] = useState('');
+  const [useAi, setUseAi] = useState(true);
+  const [useWebSources, setUseWebSources] = useState(false);
   const analysisSteps = [
     'Reading ticket image...',
     'Extracting citation details...',
     'Cross-checking statutes...',
-    'Drafting strategy outline...'
+    'Drafting strategy outline...',
+    'Generating AI strategy...'
   ];
 
   const { toast } = useToast();
@@ -24,6 +35,12 @@ const UploadTicket = () => {
   useEffect(() => {
     window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
   }, []);
+
+  useEffect(() => {
+    return () => {
+      if (ticketPreviewUrl) URL.revokeObjectURL(ticketPreviewUrl);
+    };
+  }, [ticketPreviewUrl]);
 
   const handleFileChange = (e) => {
     const selectedFile = e.target.files?.[0];
@@ -38,9 +55,17 @@ const UploadTicket = () => {
       return;
     }
 
+    if (ticketPreviewUrl) URL.revokeObjectURL(ticketPreviewUrl);
+    const previewUrl = selectedFile.type.startsWith('image/')
+      ? URL.createObjectURL(selectedFile)
+      : '';
+    setTicketPreviewUrl(previewUrl);
     setFile(selectedFile);
     setAnalysisComplete(false);
     setAnalysisStep(0);
+    setAnalysisProgress(0);
+    setAnalysisData(null);
+    setAnalysisError('');
 
     toast({
       variant: 'success',
@@ -49,7 +74,7 @@ const UploadTicket = () => {
     });
   };
 
-  const handleAnalyze = () => {
+  const handleAnalyze = async () => {
     if (!file) {
       toast({
         variant: 'destructive',
@@ -59,16 +84,67 @@ const UploadTicket = () => {
       return;
     }
 
+    if (file.type === 'application/pdf') {
+      toast({
+        variant: 'destructive',
+        title: 'PDF not supported for demo',
+        description: 'Please upload a JPG or PNG image for OCR scanning.',
+      });
+      return;
+    }
+
     setIsAnalyzing(true);
     setAnalysisStep(0);
+    setAnalysisProgress(0);
+    setAnalysisError('');
     const stepInterval = setInterval(() => {
       setAnalysisStep((prev) => (prev + 1) % analysisSteps.length);
     }, 700);
 
-    // Demo: simulate scan + extraction
-    setTimeout(() => {
-      clearInterval(stepInterval);
-      setIsAnalyzing(false);
+    try {
+      const text = await runOcr(file, (progress) => {
+        setAnalysisProgress(Math.round(progress * 100));
+      });
+
+      if (!text.trim()) {
+        throw new Error('No readable text found. Try a clearer photo.');
+      }
+
+      const parsed = parseTicketText(text);
+      const fallbackAi = buildAiAnalysis(parsed);
+      let aiOutput = fallbackAi;
+      let aiSources = [];
+      let aiMeta = { usedAi: false, error: '' };
+
+      if (useAi) {
+        const aiResult = await generateAiAnalysis({
+          parsedData: parsed,
+          rawText: text,
+          useWebSources
+        });
+        if (aiResult.ai) {
+          aiOutput = { ...fallbackAi, ...aiResult.ai };
+        }
+        aiSources = aiResult.sources || [];
+        aiMeta = { usedAi: aiResult.usedAi, error: aiResult.error || '' };
+        if (!aiResult.usedAi && aiResult.error) {
+          toast({
+            variant: 'destructive',
+            title: 'AI unavailable',
+            description: aiResult.error,
+          });
+        }
+      }
+
+      setAnalysisData({
+        ...parsed,
+        ai: {
+          ...aiOutput,
+          sources: aiSources
+        },
+        aiMeta,
+        ticketImage: ticketPreviewUrl || null
+      });
       setAnalysisComplete(true);
 
       toast({
@@ -76,13 +152,29 @@ const UploadTicket = () => {
         title: 'Analysis complete',
         description: 'Ticket details extracted successfully',
       });
-    }, 2400);
+    } catch (error) {
+      const message = error?.message || 'Something went wrong while scanning.';
+      setAnalysisError(message);
+      toast({
+        variant: 'destructive',
+        title: 'Scan failed',
+        description: message,
+      });
+    } finally {
+      clearInterval(stepInterval);
+      setIsAnalyzing(false);
+    }
   };
 
   const handleReset = () => {
     setAnalysisComplete(false);
     setFile(null);
     setAnalysisStep(0);
+    setAnalysisProgress(0);
+    setAnalysisData(null);
+    setAnalysisError('');
+    if (ticketPreviewUrl) URL.revokeObjectURL(ticketPreviewUrl);
+    setTicketPreviewUrl('');
   };
 
   return (
@@ -105,17 +197,7 @@ const UploadTicket = () => {
         </div>
 
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          {analysisComplete && (
-            <div className="text-center mb-8 mt-6">
-              <p className="text-white/60 text-xs uppercase tracking-wider mb-2">
-                Upload Results
-              </p>
-              <h1 className="text-3xl sm:text-4xl font-black text-white">
-                Ticket Upload Complete
-              </h1>
-            </div>
-          )}
-          {!analysisComplete ? (
+          {!analysisComplete || !analysisData ? (
             <>
               <div className="text-center mb-12">
                 <h1 className="text-4xl sm:text-5xl font-black text-white mb-4">
@@ -180,9 +262,37 @@ const UploadTicket = () => {
                   </Button>
                   {isAnalyzing && (
                     <p className="text-center text-white/60 text-sm">
-                      {analysisSteps[analysisStep]}
+                      {analysisSteps[analysisStep]}{analysisProgress ? ` (${analysisProgress}%)` : ''}
                     </p>
                   )}
+                  {analysisError && (
+                    <p className="text-center text-red-300 text-sm">
+                      {analysisError}
+                    </p>
+                  )}
+                  <div className="bg-white/5 border border-white/10 rounded-xl p-4 text-white/70 text-sm">
+                    <p className="text-white font-semibold mb-2">Demo settings</p>
+                    <label className="flex items-center gap-2 mb-2">
+                      <input
+                        type="checkbox"
+                        checked={useAi}
+                        onChange={(e) => setUseAi(e.target.checked)}
+                      />
+                      Use AI analysis (requires internet)
+                    </label>
+                    <label className="flex items-center gap-2">
+                      <input
+                        type="checkbox"
+                        checked={useWebSources}
+                        onChange={(e) => setUseWebSources(e.target.checked)}
+                        disabled={!useAi}
+                      />
+                      Include web statute lookup (beta)
+                    </label>
+                    <p className="mt-2 text-white/50 text-xs">
+                      OCR + analysis run locally; no ticket data is stored.
+                    </p>
+                  </div>
 
                   <div className="relative flex items-center py-6">
                     <div className="flex-grow border-t border-white/10"></div>
@@ -221,30 +331,7 @@ const UploadTicket = () => {
               </div>
             </>
           ) : (
-            <div className="bg-white/5 backdrop-blur-lg border border-white/10 rounded-3xl p-8 sm:p-12 shadow-2xl text-center mt-6">
-              <CheckCircle className="h-16 w-16 text-[#C6FF4D] mx-auto mb-4" />
-              <h2 className="text-3xl sm:text-4xl font-black text-white mb-4">
-                Ticket Uploaded
-              </h2>
-              <p className="text-white/70 mb-8">
-                We&apos;re reviewing your citation details now. Continue to see your eligibility.
-              </p>
-              <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-                <Button
-                  onClick={() => navigate('/eligibility')}
-                  className="bg-[#C6FF4D] text-[#0A1A2F] hover:bg-[#C6FF4D]/90 font-bold py-5 px-10 rounded-full"
-                >
-                  Continue to Eligibility
-                </Button>
-                <Button
-                  variant="ghost"
-                  onClick={handleReset}
-                  className="text-white/60 hover:text-white"
-                >
-                  Upload another ticket
-                </Button>
-              </div>
-            </div>
+            <TicketAnalysisResults analysis={analysisData} ticketFile={file} onReset={handleReset} />
           )}
         </div>
       </main>
