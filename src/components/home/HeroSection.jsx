@@ -75,7 +75,7 @@ const HeroSection = () => {
           }} transition={{
             duration: 0.6,
             delay: 0.2
-          }} className="text-lg sm:text-xl text-white/70 mb-4 max-w-2xl mx-auto lg:mx-0 font-medium leading-relaxed">Scan your citation — we&apos;ll take care of the rest.</motion.p>
+          }} className="text-lg sm:text-xl text-white/70 mb-4 max-w-2xl mx-auto lg:mx-0 font-medium leading-relaxed">Scan your citation, we&apos;ll take care of the rest.</motion.p>
 
             <motion.div initial={{
             opacity: 0,

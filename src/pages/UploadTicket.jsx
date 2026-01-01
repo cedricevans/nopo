@@ -236,7 +236,7 @@ const UploadTicket = () => {
                   Take a photo or upload your ticket. We&apos;ll automatically extract the details and evaluate your case.
                 </p>
                 <p className="text-sm text-white/60 mt-3">
-                  Don&apos;t worry — every ticket is reviewed by our team before moving forward.
+                  Don&apos;t worry,  every ticket is reviewed by our team before moving forward.
                 </p>
               </div>
 
