@@ -16,7 +16,7 @@ export function Toaster() {
 
 	return (
 		<ToastProvider>
-			{toasts.map(({ id, title, description, action, variant, ...props }) => {
+			{toasts.map(({ id, title, description, action, variant, dismiss, ...props }) => {
 				return (
 					<Toast key={id} variant={variant} {...props}>
 						<div className="flex items-start gap-3">

@@ -8,7 +8,8 @@ import { useNavigate } from 'react-router-dom';
 import TicketAnalysisResults from '@/components/upload/TicketAnalysisResults';
 import { runOcr } from '@/lib/ticketOcr';
 import { parseTicketText, buildAiAnalysis } from '@/lib/ticketAnalysis';
-import { generateAiAnalysis } from '@/lib/ticketAi';
+import { generateAiAnalysis, testAiConnection } from '@/lib/ticketAi';
+import { preprocessTicketImage } from '@/lib/imagePreprocess';
 
 const UploadTicket = () => {
   const [file, setFile] = useState(null);
@@ -21,6 +22,9 @@ const UploadTicket = () => {
   const [analysisError, setAnalysisError] = useState('');
   const [useAi, setUseAi] = useState(true);
   const [useWebSources, setUseWebSources] = useState(false);
+  const [enhanceHandwriting, setEnhanceHandwriting] = useState(true);
+  const [isTestingAi, setIsTestingAi] = useState(false);
+  const [aiStatus, setAiStatus] = useState('idle');
   const analysisSteps = [
     'Reading ticket image...',
     'Extracting citation details...',
@@ -102,7 +106,10 @@ const UploadTicket = () => {
     }, 700);
 
     try {
-      const text = await runOcr(file, (progress) => {
+      const ocrInput = enhanceHandwriting
+        ? await preprocessTicketImage(file)
+        : file;
+      const text = await runOcr(ocrInput, (progress) => {
         setAnalysisProgress(Math.round(progress * 100));
       });
 
@@ -175,6 +182,28 @@ const UploadTicket = () => {
     setAnalysisError('');
     if (ticketPreviewUrl) URL.revokeObjectURL(ticketPreviewUrl);
     setTicketPreviewUrl('');
+  };
+
+  const handleTestAi = async () => {
+    setIsTestingAi(true);
+    const result = await testAiConnection();
+    if (result.ok) {
+      setAiStatus('connected');
+      toast({
+        variant: 'success',
+        title: 'AI connected',
+        description: 'Gemini is reachable and responding.',
+      });
+    } else {
+      const isQuota = (result.error || '').toLowerCase().includes('quota');
+      setAiStatus(isQuota ? 'cooldown' : 'error');
+      toast({
+        variant: 'destructive',
+        title: 'AI connection failed',
+        description: result.error || 'Unable to reach Gemini.',
+      });
+    }
+    setIsTestingAi(false);
   };
 
   return (
@@ -279,6 +308,20 @@ const UploadTicket = () => {
                         onChange={(e) => setUseAi(e.target.checked)}
                       />
                       Use AI analysis (requires internet)
+                      <span className={`ml-auto text-[10px] px-2 py-0.5 rounded-full border ${
+                        aiStatus === 'connected'
+                          ? 'bg-green-500/10 text-green-300 border-green-500/30'
+                          : aiStatus === 'cooldown'
+                            ? 'bg-yellow-500/10 text-yellow-300 border-yellow-500/30'
+                            : aiStatus === 'error'
+                              ? 'bg-red-500/10 text-red-300 border-red-500/30'
+                              : 'bg-white/10 text-white/50 border-white/10'
+                      }`}>
+                        {aiStatus === 'connected' && 'Connected'}
+                        {aiStatus === 'cooldown' && 'Cooling down'}
+                        {aiStatus === 'error' && 'Unavailable'}
+                        {aiStatus === 'idle' && 'Not checked'}
+                      </span>
                     </label>
                     <label className="flex items-center gap-2">
                       <input
@@ -289,6 +332,24 @@ const UploadTicket = () => {
                       />
                       Include web statute lookup (beta)
                     </label>
+                    <label className="flex items-center gap-2 mt-2">
+                      <input
+                        type="checkbox"
+                        checked={enhanceHandwriting}
+                        onChange={(e) => setEnhanceHandwriting(e.target.checked)}
+                      />
+                      Enhance handwriting before OCR
+                    </label>
+                    <div className="mt-3">
+                      <Button
+                        type="button"
+                        onClick={handleTestAi}
+                        disabled={isTestingAi}
+                        className="bg-white/10 text-white hover:bg-white/20 h-9 px-4"
+                      >
+                        {isTestingAi ? 'Testing AI...' : 'Test AI Connection'}
+                      </Button>
+                    </div>
                     <p className="mt-2 text-white/50 text-xs">
                       OCR + analysis run locally; no ticket data is stored.
                     </p>

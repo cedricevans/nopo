@@ -1,5 +1,7 @@
 import { GoogleGenAI } from '@google/genai';
 
+const DEFAULT_MODEL = 'gemini-3-flash-preview';
+
 const stripToJson = (text) => {
   if (!text) return '';
   const first = text.indexOf('{');
@@ -104,7 +106,7 @@ Return JSON with this shape:
   const ai = new GoogleGenAI({ apiKey });
   try {
     const response = await ai.models.generateContent({
-      model: 'gemini-2.0-flash',
+      model: DEFAULT_MODEL,
       contents: prompt,
       config: {
         responseMimeType: 'application/json',
@@ -122,5 +124,27 @@ Return JSON with this shape:
   } catch (error) {
     const message = error?.message || 'AI request failed.';
     return { ai: null, sources, usedAi: false, error: message };
+  }
+};
+
+export const testAiConnection = async () => {
+  const apiKey = import.meta.env.VITE_GEMINI_API_KEY;
+  if (!apiKey) {
+    return { ok: false, error: 'Missing API key.' };
+  }
+
+  try {
+    const ai = new GoogleGenAI({ apiKey });
+    await ai.models.generateContent({
+      model: DEFAULT_MODEL,
+      contents: 'ping',
+      config: {
+        responseMimeType: 'text/plain',
+        temperature: 0
+      }
+    });
+    return { ok: true, error: '' };
+  } catch (error) {
+    return { ok: false, error: error?.message || 'AI request failed.' };
   }
 };
