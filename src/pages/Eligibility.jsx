@@ -67,7 +67,7 @@ const Eligibility = () => {
               <span className="text-sm font-semibold uppercase tracking-wider">Eligibility Result</span>
             </div>
             <h1 className="text-3xl sm:text-4xl font-black text-white mb-4">
-              Good News — You&apos;re Eligible for Defense
+              Good News, You&apos;re Eligible for Defense
             </h1>
             <p className="text-white/70 text-lg mb-6">
               Based on your citation, we can assign a licensed attorney to contest or mitigate your ticket.
