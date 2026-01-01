@@ -301,14 +301,14 @@ const UploadTicket = () => {
                   )}
                   <div className="bg-white/5 border border-white/10 rounded-xl p-4 text-white/70 text-sm">
                     <p className="text-white font-semibold mb-2">Demo settings</p>
-                    <label className="flex items-center gap-2 mb-2">
+                    <label className="flex flex-wrap items-center gap-2 mb-2">
                       <input
                         type="checkbox"
                         checked={useAi}
                         onChange={(e) => setUseAi(e.target.checked)}
                       />
-                      Use AI analysis (requires internet)
-                      <span className={`ml-auto text-[10px] px-2 py-0.5 rounded-full border ${
+                      <span className="flex-1 min-w-[160px]">Use AI analysis (requires internet)</span>
+                      <span className={`text-[10px] px-2 py-0.5 rounded-full border whitespace-nowrap ${
                         aiStatus === 'connected'
                           ? 'bg-green-500/10 text-green-300 border-green-500/30'
                           : aiStatus === 'cooldown'
