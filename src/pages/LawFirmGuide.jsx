@@ -138,10 +138,12 @@ const LawFirmGuide = () => (
           <div className="rounded-2xl border border-[#4EA1FF]/40 bg-gradient-to-br from-[#0A1A2F] via-[#0D2336] to-[#1A2B1A] p-5 shadow-[0_0_35px_rgba(78,161,255,0.12)]">
             <p className="text-xs uppercase tracking-[0.2em] text-white/50">Level 4</p>
           <h3 className="mt-2 text-lg font-semibold">White Label (Your Brand, Our Platform)</h3>
-          <p className="mt-2 text-base text-white/70">A branded version with your domain, colors, and UI.</p>
+            <p className="mt-2 text-base text-white/70">
+              A white-label license with monthly access plus per-ticket usage.
+            </p>
             <div className="mt-4 flex flex-wrap gap-2 text-base font-bold text-white">
-              <span className="rounded-full border border-white/40 bg-[#0A1A2F] px-3 py-1">Option A: $1.5k to $3k / mo</span>
-              <span className="rounded-full border border-white/40 bg-[#0A1A2F] px-3 py-1">Option A: $5 / ticket</span>
+              <span className="rounded-full border border-white/40 bg-[#0A1A2F] px-3 py-1">Monthly license: $1.5k to $3k</span>
+              <span className="rounded-full border border-white/40 bg-[#0A1A2F] px-3 py-1">Per-ticket usage: $5 / ticket</span>
             </div>
             <p className="mt-4 text-sm uppercase tracking-[0.18em] text-white/50">Includes</p>
             <ul className="mt-2 space-y-2 text-base text-white/70">
