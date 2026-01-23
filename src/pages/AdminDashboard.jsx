@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 
 const attorneys = ['Unassigned', 'Ava Carter', 'Liam Brooks', 'Priya Shah', 'Mateo Ruiz'];
 const statusOptions = ['New', 'In Review', 'Awaiting Client', 'Filed', 'Court Scheduled', 'Resolved'];
@@ -158,11 +158,30 @@ const AdminDashboard = () => {
     setAlertMessage(`New ticket added: ${record.id}`);
   };
 
+  const playNotification = useCallback(() => {
+    try {
+      const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+      const oscillator = audioContext.createOscillator();
+      const gain = audioContext.createGain();
+      oscillator.type = 'sine';
+      oscillator.frequency.value = 880;
+      gain.gain.value = 0.08;
+      oscillator.connect(gain);
+      gain.connect(audioContext.destination);
+      oscillator.start();
+      oscillator.stop(audioContext.currentTime + 0.15);
+      oscillator.onended = () => audioContext.close();
+    } catch {}
+  }, []);
+
   useEffect(() => {
     if (!alertMessage) return undefined;
+    if (alertMessage.toLowerCase().includes('new ticket')) {
+      playNotification();
+    }
     const timeout = setTimeout(() => setAlertMessage(''), 4000);
     return () => clearTimeout(timeout);
-  }, [alertMessage]);
+  }, [alertMessage, playNotification]);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -220,8 +239,13 @@ const AdminDashboard = () => {
     <main className="min-h-screen bg-[#F5F8FC] text-slate-900 pt-36 pb-16">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {alertMessage && (
-          <div className="mb-5 rounded-2xl border border-[#4EA1FF]/40 bg-white px-4 py-3 text-sm text-slate-700 shadow-sm">
-            {alertMessage}
+          <div className="mb-5 flex flex-wrap items-center justify-between gap-2 rounded-2xl border border-[#4EA1FF]/40 bg-white px-4 py-3 text-sm text-slate-700 shadow-sm">
+            <span>{alertMessage}</span>
+            {alertMessage.toLowerCase().includes('new ticket') && (
+              <span className="rounded-full border border-[#4EA1FF]/40 bg-[#EFF6FF] px-3 py-1 text-xs font-semibold text-[#1D4ED8]">
+                New ticket
+              </span>
+            )}
           </div>
         )}
         <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
