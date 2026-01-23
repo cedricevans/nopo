@@ -1,0 +1,367 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Citation Nation Investor Guide</title>
+  <style>
+    :root{
+      --bg:#050e19;
+      --bg2:#0a1626;
+      --card:#0f1f35;
+      --card2:#0c1a2c;
+      --text:#f2f5ff;
+      --muted:#b4c0d6;
+      --line:rgba(255,255,255,.10);
+      --accent:#4ea1ff;
+      --accent2:#c6ff4d;
+      --warn:#f8b34a;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family:"Space Grotesk", "Segoe UI", Tahoma, sans-serif;
+      color:var(--text);
+      background:
+        radial-gradient(1100px 520px at 20% 10%, rgba(78,161,255,.20), transparent 60%),
+        radial-gradient(900px 540px at 80% 10%, rgba(198,255,77,.12), transparent 60%),
+        linear-gradient(180deg, var(--bg), var(--bg2));
+      line-height:1.55;
+    }
+    .wrap{max-width:1100px;margin:0 auto;padding:32px 18px 70px}
+    header{
+      border:1px solid var(--line);
+      background:linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.02));
+      border-radius:20px;
+      padding:24px;
+      display:grid;
+      gap:18px;
+    }
+    .eyebrow{
+      font-size:12px;
+      text-transform:uppercase;
+      letter-spacing:.26em;
+      color:var(--accent2);
+      font-weight:700;
+    }
+    h1{margin:0;font-size:34px;letter-spacing:.2px}
+    .sub{margin:6px 0 0;color:var(--muted);font-size:15px}
+    .hero-grid{
+      display:grid;
+      grid-template-columns:1fr;
+      gap:16px;
+    }
+    @media (min-width:900px){
+      .hero-grid{grid-template-columns:1.2fr .8fr;align-items:stretch}
+    }
+    .card{
+      border:1px solid var(--line);
+      background:linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.02));
+      border-radius:18px;
+      padding:18px;
+    }
+    .pill{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding:6px 12px;
+      border-radius:999px;
+      border:1px solid var(--line);
+      background:rgba(255,255,255,.04);
+      font-size:12px;
+      color:var(--muted);
+      text-transform:uppercase;
+      letter-spacing:.16em;
+      font-weight:700;
+    }
+    .grid{
+      margin-top:18px;
+      display:grid;
+      grid-template-columns:1fr;
+      gap:16px;
+    }
+    @media (min-width:860px){
+      .grid{grid-template-columns:repeat(2,1fr)}
+      .wide{grid-column:1/-1}
+    }
+    h2{margin:8px 0 10px;font-size:20px}
+    h3{margin:16px 0 8px;font-size:13px;color:var(--muted);text-transform:uppercase;letter-spacing:.14em}
+    ul{margin:8px 0 0 18px;color:var(--text)}
+    li{margin:6px 0}
+    .kpis{
+      display:grid;
+      grid-template-columns:repeat(2,1fr);
+      gap:10px;
+    }
+    .kpi{
+      border:1px solid var(--line);
+      border-radius:14px;
+      padding:12px;
+      background:rgba(0,0,0,.18);
+    }
+    .kpi strong{display:block;font-size:20px}
+    .muted{color:var(--muted)}
+    .offer{
+      display:grid;
+      grid-template-columns:1fr;
+      gap:16px;
+    }
+    @media (min-width:900px){
+      .offer{grid-template-columns:repeat(3,1fr)}
+    }
+    .offer h2{font-size:18px;margin:10px 0 6px}
+    .price{
+      display:flex;
+      flex-wrap:wrap;
+      gap:8px;
+      margin:10px 0 12px;
+    }
+    .badge{
+      border:1px solid var(--line);
+      background:rgba(255,255,255,.05);
+      border-radius:999px;
+      padding:6px 12px;
+      font-size:12px;
+    }
+    .highlight{
+      border:1px solid rgba(198,255,77,.4);
+      background:rgba(198,255,77,.08);
+    }
+    .timeline{
+      display:grid;
+      gap:12px;
+    }
+    .step{
+      display:grid;
+      grid-template-columns:44px 1fr;
+      gap:12px;
+      align-items:start;
+    }
+    .step-number{
+      width:44px;height:44px;border-radius:12px;
+      background:rgba(78,161,255,.12);
+      border:1px solid rgba(78,161,255,.4);
+      display:flex;align-items:center;justify-content:center;
+      font-weight:700;color:var(--accent);
+    }
+    footer{
+      margin-top:24px;
+      border:1px solid var(--line);
+      background:linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.02));
+      border-radius:18px;
+      padding:18px;
+      display:grid;
+      gap:12px;
+    }
+    .cta{
+      display:flex;
+      flex-direction:column;
+      gap:10px;
+    }
+    @media (min-width:720px){
+      .cta{flex-direction:row;align-items:center;justify-content:space-between}
+    }
+    .cta a{
+      color:var(--text);
+      text-decoration:none;
+      padding:10px 18px;
+      border-radius:999px;
+      border:1px solid rgba(78,161,255,.5);
+      background:rgba(78,161,255,.15);
+      font-weight:700;
+    }
+    .note{font-size:12px;color:var(--muted)}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <div>
+        <span class="eyebrow">Investor Guide</span>
+        <h1>Citation Nation: What You Are Buying</h1>
+        <p class="sub">A plain-English overview of the product, business model, and partnership paths. Designed for CEOs, partners, and investors who need clarity fast.</p>
+      </div>
+      <div class="hero-grid">
+        <div class="card">
+          <span class="pill">Product in one sentence</span>
+          <h2>We turn traffic tickets into a clean digital case file and route it to the right attorney in minutes.</h2>
+          <p class="muted">Citation Nation combines AI ticket analysis, guided intake, and a lawyer dashboard so firms can take more cases with less staff time.</p>
+          <h3>Who it serves</h3>
+          <ul>
+            <li><strong>Drivers:</strong> upload a ticket and get fast, clear next steps.</li>
+            <li><strong>Law firms:</strong> receive qualified, structured cases with supporting evidence.</li>
+            <li><strong>Partners:</strong> white-label or revenue-share access to the platform.</li>
+          </ul>
+        </div>
+        <div class="card">
+          <span class="pill">Quick facts</span>
+          <div class="kpis">
+            <div class="kpi">
+              <span class="muted">Primary revenue</span>
+              <strong>Per-ticket fees</strong>
+              <span class="muted">+ subscriptions for firms</span>
+            </div>
+            <div class="kpi">
+              <span class="muted">Core asset</span>
+              <strong>Proprietary workflow</strong>
+              <span class="muted">AI + case routing</span>
+            </div>
+            <div class="kpi">
+              <span class="muted">Go-to-market</span>
+              <strong>Attorney partnerships</strong>
+              <span class="muted">+ B2C lead flow</span>
+            </div>
+            <div class="kpi">
+              <span class="muted">Status</span>
+              <strong>Live prototype</strong>
+              <span class="muted">Ready for pilots</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <div class="grid">
+      <section class="card">
+        <span class="pill">The problem</span>
+        <h2>Ticket cases are profitable but messy to intake.</h2>
+        <ul>
+          <li>Manual intake wastes time and leads to dropped cases.</li>
+          <li>Firms struggle to qualify tickets quickly.</li>
+          <li>Drivers are confused and delay action, lowering conversion.</li>
+        </ul>
+      </section>
+
+      <section class="card">
+        <span class="pill">The solution</span>
+        <h2>Automated intake with a case-ready output.</h2>
+        <ul>
+          <li>OCR + AI extracts violations, court dates, and state rules.</li>
+          <li>Guided intake validates missing info in real time.</li>
+          <li>Attorney dashboard shows status, documents, and next steps.</li>
+        </ul>
+      </section>
+
+      <section class="card wide">
+        <span class="pill">What a buyer gets</span>
+        <h2>You are buying a revenue engine, not just software.</h2>
+        <ul>
+          <li><strong>Platform access:</strong> full ticket intake workflow, analytics, and status tracking.</li>
+          <li><strong>Case-ready output:</strong> structured summaries that reduce paralegal work.</li>
+          <li><strong>Lead flow:</strong> inbound drivers routed into your firm or territory.</li>
+          <li><strong>Brand leverage:</strong> optional white-label to present as your own service.</li>
+        </ul>
+        <p class="note">If you prefer a different structure (equity, license, or revenue share), we can align the deal accordingly.</p>
+      </section>
+    </div>
+
+    <section class="card" style="margin-top:18px;">
+      <span class="pill">Offering paths</span>
+      <h2>Choose the model that fits your organization.</h2>
+      <div class="offer">
+        <div class="card highlight">
+          <h2>Strategic Investment</h2>
+          <p class="muted">Equity participation in the core company.</p>
+          <div class="price">
+            <span class="badge">Target raise: $250k to $1.5M</span>
+            <span class="badge">Use of funds: product + sales</span>
+          </div>
+          <ul>
+            <li>Board or advisor seat optional.</li>
+            <li>Access to roadmap and KPIs.</li>
+            <li>Priority in future territory licensing.</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h2>Revenue-Share Partnership</h2>
+          <p class="muted">Operate the platform in your region or firm with shared revenue.</p>
+          <div class="price">
+            <span class="badge">Setup: $5k to $25k</span>
+            <span class="badge">Rev share: 15% to 35%</span>
+          </div>
+          <ul>
+            <li>Co-branded intake portal.</li>
+            <li>Shared marketing ownership.</li>
+            <li>Monthly performance reviews.</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h2>White-Label License</h2>
+          <p class="muted">Your brand, your clients, our platform.</p>
+          <div class="price">
+            <span class="badge">License: $1.5k to $5k / mo</span>
+            <span class="badge">Usage: $3 to $7 / ticket</span>
+          </div>
+          <ul>
+            <li>Custom domain + branding.</li>
+            <li>Firm-controlled data pipeline.</li>
+            <li>Implementation support + training.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <div class="grid">
+      <section class="card">
+        <span class="pill">Business model</span>
+        <h2>Revenue streams</h2>
+        <ul>
+          <li>Per-ticket processing fee.</li>
+          <li>Subscription access for firms.</li>
+          <li>Premium modules (voice AI, advanced analytics).</li>
+          <li>Marketing partnerships and territory exclusivity.</li>
+        </ul>
+      </section>
+
+      <section class="card">
+        <span class="pill">Competitive edge</span>
+        <h2>Why this wins</h2>
+        <ul>
+          <li>Automates the slowest part of ticket law: intake and triage.</li>
+          <li>Built for high-volume, low-touch workflows.</li>
+          <li>Dual-sided marketplace: drivers + firms.</li>
+        </ul>
+      </section>
+
+      <section class="card wide">
+        <span class="pill">Growth plan</span>
+        <h2>How we scale in 12 months</h2>
+        <div class="timeline">
+          <div class="step">
+            <div class="step-number">1</div>
+            <div>
+              <strong>Pilot city launch</strong>
+              <p class="muted">Onboard 3-5 firms, validate conversion, refine onboarding.</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-number">2</div>
+            <div>
+              <strong>Regional expansion</strong>
+              <p class="muted">Add 5-10 metro areas with co-marketing partners.</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-number">3</div>
+            <div>
+              <strong>National licensing</strong>
+              <p class="muted">Scale white-label + revenue-share packages.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <footer>
+      <div class="cta">
+        <div>
+          <h2>Interested in a pilot or term sheet?</h2>
+          <p class="muted">We can tailor the structure to your firm or investment thesis. Request the full financial model, pipeline, and live demo.</p>
+        </div>
+        <a href="mailto:support@citationnation.com">Request the full deck</a>
+      </div>
+      <p class="note">This guide is a high-level overview. Final terms are subject to legal agreements and due diligence.</p>
+    </footer>
+  </div>
+</body>
+</html>
