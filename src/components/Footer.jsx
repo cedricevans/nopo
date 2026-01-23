@@ -100,6 +100,8 @@ const Footer = () => {
           <p className="text-xs text-white/40">
             © {currentYear} Indigo Group. All rights reserved.{' '}
             <a href="https://indigographix.com" className="hover:text-white transition-colors">indigographix.com</a>
+            <span className="mx-2 text-white/20">|</span>
+            <Link to="/admin" className="hover:text-white transition-colors">Admin</Link>
           </p>
           <div className="flex gap-6 text-xs text-white/40">
              <span>v2.1.0 (Stable)</span>

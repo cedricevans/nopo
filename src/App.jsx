@@ -30,6 +30,7 @@ import LawyerConfirmation from '@/pages/LawyerConfirmation';
 import AttorneyChat from '@/pages/AttorneyChat';
 import InvestorGuide from '@/pages/InvestorGuide';
 import LawFirmGuide from '@/pages/LawFirmGuide';
+import AdminDashboard from '@/pages/AdminDashboard';
 import { Toaster } from '@/components/ui/toaster';
 import ScrollToTop from '@/components/ScrollToTop';
 
@@ -74,6 +75,7 @@ function App() {
             <Route path="/attorney-chat" element={<AttorneyChat />} />
             <Route path="/investor-guide" element={<InvestorGuide />} />
             <Route path="/law-firm-guide" element={<LawFirmGuide />} />
+            <Route path="/admin" element={<AdminDashboard />} />
             <Route path="*" element={<Home />} />
           </Routes>
         </div>

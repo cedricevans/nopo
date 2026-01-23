@@ -220,12 +220,21 @@ const LawFirmGuide = () => (
             get co-marketing support to help us both win the market.
           </p>
         </div>
-        <Button
-          asChild
-          className="rounded-full bg-[#C6FF4D] text-[#0A1A2F] hover:bg-[#C6FF4D]/90 font-semibold"
-        >
-          <a href="mailto:support@citationnation.com">Schedule a firm walkthrough</a>
-        </Button>
+        <div className="flex flex-col sm:flex-row gap-3">
+          <Button
+            asChild
+            className="rounded-full bg-[#C6FF4D] text-[#0A1A2F] hover:bg-[#C6FF4D]/90 font-semibold"
+          >
+            <a href="tel:4048890186">Call 404.889.0186</a>
+          </Button>
+          <Button
+            asChild
+            variant="outline"
+            className="rounded-full border-white/20 text-white hover:bg-white/10"
+          >
+            <a href="mailto:indigowebdesigns@gmail.com">Email indigowebdesigns@gmail.com</a>
+          </Button>
+        </div>
       </div>
       <p className="mt-4 text-sm text-white/40">
         Pricing shown is a guide; final terms depend on volume, region, and implementation scope.
