@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { GoogleGenAI, Modality, Type } from '@google/genai';
 import { ConnectionStatus } from '@/voice/types';
-import { decode, decodeAudioData, createBlob } from '@/voice/utils/audio';
+import { decode, decodeAudioData, createPcmAudioMessage, downsampleTo16k } from '@/voice/utils/audio';
 import { SYSTEM_INSTRUCTION } from '@/voice/constants';
 
 const Header = () => (
@@ -69,6 +69,15 @@ const VoiceAssistant = () => {
   const sessionRef = useRef(null);
   const transcriptionRef = useRef({ user: '', assistant: '' });
   const transcriptContainerRef = useRef(null);
+  const mediaStreamRef = useRef(null);
+  const mediaSourceRef = useRef(null);
+  const processorRef = useRef(null);
+  const workletNodeRef = useRef(null);
+  const workletGainRef = useRef(null);
+  const canSendAudioRef = useRef(false);
+  const sessionOpenRef = useRef(false);
+  const pcmBufferRef = useRef({ chunks: [], length: 0 });
+  const targetSamplesRef = useRef(3200);
 
   useEffect(() => {
     if (transcriptContainerRef.current) {
@@ -84,6 +93,40 @@ const VoiceAssistant = () => {
     nextStartTimeRef.current = 0;
   }, []);
 
+  const cleanupAudioPipeline = useCallback(() => {
+    canSendAudioRef.current = false;
+    pcmBufferRef.current = { chunks: [], length: 0 };
+    if (processorRef.current) {
+      processorRef.current.onaudioprocess = null;
+      try { processorRef.current.disconnect(); } catch {}
+      processorRef.current = null;
+    }
+    if (workletNodeRef.current) {
+      workletNodeRef.current.port.onmessage = null;
+      try { workletNodeRef.current.disconnect(); } catch {}
+      workletNodeRef.current = null;
+    }
+    if (workletGainRef.current) {
+      try { workletGainRef.current.disconnect(); } catch {}
+      workletGainRef.current = null;
+    }
+    if (mediaSourceRef.current) {
+      try { mediaSourceRef.current.disconnect(); } catch {}
+      mediaSourceRef.current = null;
+    }
+    if (mediaStreamRef.current) {
+      mediaStreamRef.current.getTracks().forEach((track) => track.stop());
+      mediaStreamRef.current = null;
+    }
+    if (inputAudioContextRef.current) {
+      try { inputAudioContextRef.current.close(); } catch {}
+    }
+    if (outputAudioContextRef.current) {
+      try { outputAudioContextRef.current.close(); } catch {}
+    }
+    stopAllAudio();
+  }, [stopAllAudio]);
+
   const startSession = async () => {
     try {
       setStatus(ConnectionStatus.CONNECTING);
@@ -97,8 +140,12 @@ const VoiceAssistant = () => {
 
       inputAudioContextRef.current = new (window.AudioContext || window.webkitAudioContext)({ sampleRate: 16000 });
       outputAudioContextRef.current = new (window.AudioContext || window.webkitAudioContext)({ sampleRate: 24000 });
+      await inputAudioContextRef.current.resume();
+      await outputAudioContextRef.current.resume();
+      targetSamplesRef.current = Math.round((inputAudioContextRef.current.sampleRate || 16000) * 0.2);
 
       const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+      mediaStreamRef.current = stream;
 
       const sendToBackendTool = {
         name: 'send_to_backend',
@@ -140,24 +187,77 @@ const VoiceAssistant = () => {
             setStatus(ConnectionStatus.CONNECTED);
             setIsListening(true);
             localStorage.setItem('nopoVoiceVisited', 'true');
+            canSendAudioRef.current = true;
+            sessionOpenRef.current = true;
 
             const source = inputAudioContextRef.current.createMediaStreamSource(stream);
-            const scriptProcessor = inputAudioContextRef.current.createScriptProcessor(4096, 1, 1);
+            mediaSourceRef.current = source;
 
-            scriptProcessor.onaudioprocess = (e) => {
-              const inputData = e.inputBuffer.getChannelData(0);
-              const pcmBlob = createBlob(inputData);
-              sessionPromise.then((session) => {
-                session.sendRealtimeInput({ media: pcmBlob });
+            inputAudioContextRef.current.audioWorklet
+              .addModule(new URL('../voice/worklets/pcm-processor.js', import.meta.url))
+              .then(() => {
+                if (!canSendAudioRef.current) return;
+                const workletNode = new AudioWorkletNode(inputAudioContextRef.current, 'pcm-processor');
+                const silentGain = inputAudioContextRef.current.createGain();
+                silentGain.gain.value = 0;
+                workletNodeRef.current = workletNode;
+                workletGainRef.current = silentGain;
+
+                workletNode.port.onmessage = (event) => {
+                  if (!canSendAudioRef.current || !sessionOpenRef.current) return;
+                  const inputData = event.data;
+                  if (!inputData || !inputData.length) return;
+                  const bufferState = pcmBufferRef.current;
+                  bufferState.chunks.push(inputData);
+                  bufferState.length += inputData.length;
+
+                  const targetSamples = targetSamplesRef.current;
+                  while (bufferState.length >= targetSamples) {
+                    const merged = new Float32Array(targetSamples);
+                    let offset = 0;
+                    while (offset < targetSamples && bufferState.chunks.length) {
+                      const chunk = bufferState.chunks[0];
+                      const remaining = targetSamples - offset;
+                      if (chunk.length <= remaining) {
+                        merged.set(chunk, offset);
+                        offset += chunk.length;
+                        bufferState.chunks.shift();
+                      } else {
+                        merged.set(chunk.subarray(0, remaining), offset);
+                        bufferState.chunks[0] = chunk.subarray(remaining);
+                        offset += remaining;
+                      }
+                    }
+                    bufferState.length -= targetSamples;
+                    const inputRate = inputAudioContextRef.current?.sampleRate || 16000;
+                    const payload = inputRate === 16000 ? merged : downsampleTo16k(merged, inputRate);
+                    const pcmMessage = createPcmAudioMessage(payload, 16000);
+                    sessionPromise.then((session) => {
+                      if (!canSendAudioRef.current || !sessionOpenRef.current) return;
+                      try {
+                        session.sendRealtimeInput({ audio: pcmMessage });
+                      } catch {
+                        sessionOpenRef.current = false;
+                        cleanupAudioPipeline();
+                      }
+                    });
+                  }
+                };
+
+                source.connect(workletNode);
+                workletNode.connect(silentGain);
+                silentGain.connect(inputAudioContextRef.current.destination);
+              })
+              .catch((err) => {
+                console.error('VoiceAssistant: audio worklet failed', err);
+                setStatus(ConnectionStatus.ERROR);
+                setIsListening(false);
+                cleanupAudioPipeline();
               });
-            };
-
-            source.connect(scriptProcessor);
-            scriptProcessor.connect(inputAudioContextRef.current.destination);
 
             sessionPromise.then((session) => {
-              if (session?.sendRealtimeInput) {
-                session.sendRealtimeInput({ text: greetingPrompt });
+              if (session?.sendRealtimeInput && canSendAudioRef.current) {
+                try { session.sendRealtimeInput({ text: greetingPrompt }); } catch {}
               }
             });
           },
@@ -212,21 +312,32 @@ const VoiceAssistant = () => {
               nextStartTimeRef.current += buffer.duration;
             }
           },
-          onerror: () => {
+          onerror: (err) => {
+            console.error('VoiceAssistant: session error', err);
             setStatus(ConnectionStatus.ERROR);
             setIsListening(false);
-            stopAllAudio();
+            sessionOpenRef.current = false;
+            cleanupAudioPipeline();
           },
           onclose: () => {
             setStatus(ConnectionStatus.IDLE);
             setIsListening(false);
-            stopAllAudio();
+            sessionOpenRef.current = false;
+            cleanupAudioPipeline();
           }
         }
       });
 
+      sessionPromise.catch((err) => {
+        console.error('VoiceAssistant: session connect failed', err);
+        setStatus(ConnectionStatus.ERROR);
+        setIsListening(false);
+        cleanupAudioPipeline();
+      });
+
       sessionRef.current = sessionPromise;
-    } catch {
+    } catch (err) {
+      console.error('VoiceAssistant: startSession failed', err);
       setStatus(ConnectionStatus.ERROR);
       setIsListening(false);
       stopAllAudio();
@@ -238,11 +349,9 @@ const VoiceAssistant = () => {
       sessionRef.current.then((session) => session.close());
       sessionRef.current = null;
     }
-    if (inputAudioContextRef.current) inputAudioContextRef.current.close();
-    if (outputAudioContextRef.current) outputAudioContextRef.current.close();
+    cleanupAudioPipeline();
     setStatus(ConnectionStatus.IDLE);
     setIsListening(false);
-    stopAllAudio();
   };
 
   return (
