@@ -3,3 +3,4 @@ node_modules
 .env.local
 public/nopo-voice/.env.local
 public/nopo-voice/
+.vercel

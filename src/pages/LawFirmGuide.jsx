@@ -1,5 +1,5 @@
-import React from 'react';
-import { Button } from '@/components/ui/button';
+import React from "react";
+import { Button } from "@/components/ui/button";
 
 const LawFirmGuide = () => (
   <main className="bg-[#050e19] text-white">
@@ -14,9 +14,9 @@ const LawFirmGuide = () => (
             Bring NoPo to Your Firm in the Way That Fits You
           </h1>
           <p className="mt-4 text-base text-white/80 max-w-3xl">
-            NoPo is the AI-powered ticket intake and strategy platform. We are pitching Citation Nation as our
-            first flagship partner, and we can also deploy it for other law firms with SaaS, white-label, or
-            custom build options.
+            NoPo is the AI-powered ticket intake and strategy platform. We are pitching Citation Nation as our first
+            flagship partner, and we can also deploy it for other law firms with SaaS, white-label, or custom build
+            options.
           </p>
         </div>
       </div>
@@ -34,6 +34,7 @@ const LawFirmGuide = () => (
             <li>Optional voice assistant to increase completions.</li>
           </ul>
         </div>
+
         <div className="rounded-2xl border border-white/10 bg-white/5 p-6">
           <p className="text-sm uppercase tracking-[0.2em] text-white/50">Why it matters</p>
           <h2 className="mt-3 text-xl font-semibold">Take more cases with the same staff.</h2>
@@ -58,7 +59,9 @@ const LawFirmGuide = () => (
             <h3 className="mt-2 text-lg font-semibold">Basic Upgrade (Entry Level)</h3>
             <p className="mt-2 text-base text-white/70">Website + intake form. No AI, no automation.</p>
             <div className="mt-4 flex flex-wrap gap-2 text-base font-bold text-white">
-              <span className="rounded-full border border-white/40 bg-[#0A1A2F] px-3 py-1">$2,500 to $7,500 one-time</span>
+              <span className="rounded-full border border-white/40 bg-[#0A1A2F] px-3 py-1">
+                $2,500 to $7,500 one-time
+              </span>
             </div>
             <p className="mt-4 text-sm uppercase tracking-[0.18em] text-white/50">Includes</p>
             <ul className="mt-2 space-y-2 text-base text-white/70">
@@ -97,33 +100,42 @@ const LawFirmGuide = () => (
             <p className="mt-2 text-base text-white">
               Premium partnership tier with partner ticket rate and referral revenue.
             </p>
+
             <div className="mt-5 grid gap-4 lg:grid-cols-2">
               <div className="rounded-2xl border border-[#C6FF4D]/70 bg-[#0A1A2F] p-4">
                 <p className="text-sm font-semibold text-[#C6FF4D]">Citation Nation flagship offer</p>
                 <div className="mt-3 flex flex-wrap gap-2 text-base font-bold text-white">
-                  <span className="rounded-full border border-[#C6FF4D] bg-[#0A1A2F] px-3 py-1 text-[#C6FF4D]">Flagship fee: $3,500</span>
+                  <span className="rounded-full border border-[#C6FF4D] bg-[#0A1A2F] px-3 py-1 text-[#C6FF4D]">
+                    Flagship fee: $3,500
+                  </span>
                   <span className="rounded-full border border-white/50 bg-[#0A1A2F] px-3 py-1">Monthly: $299</span>
                   <span className="rounded-full border border-white/50 bg-[#0A1A2F] px-3 py-1">Usage: $3 / ticket</span>
-                  <span className="rounded-full border border-white/50 bg-[#0A1A2F] px-3 py-1">Referral: 10% to 15%</span>
-                  <span className="rounded-full border border-white bg-[#0A1A2F] px-3 py-1 text-white">Early access: 12 months</span>
+                  <span className="rounded-full border border-white/50 bg-[#0A1A2F] px-3 py-1">
+                    Referral: 10% to 15%
+                  </span>
+                  <span className="rounded-full border border-white bg-[#0A1A2F] px-3 py-1 text-white">
+                    Early access: 12 months
+                  </span>
                 </div>
-                <p className="mt-3 text-sm text-white">
-                  First access to new add-ons and upgrades. Voice AI included.
-                </p>
+                <p className="mt-3 text-sm text-white">First access to new add-ons and upgrades. Voice AI included.</p>
               </div>
+
               <div className="rounded-2xl border border-white/15 bg-[#0A1A2F] p-4">
                 <p className="text-sm font-semibold text-[#4EA1FF]">All other partners</p>
                 <div className="mt-3 flex flex-wrap gap-2 text-base font-bold text-white">
                   <span className="rounded-full border border-white/50 bg-[#0A1A2F] px-3 py-1">Partner fee: $5,500</span>
                   <span className="rounded-full border border-white/50 bg-[#0A1A2F] px-3 py-1">Monthly: $299</span>
                   <span className="rounded-full border border-white/50 bg-[#0A1A2F] px-3 py-1">Usage: $5 / ticket</span>
-                  <span className="rounded-full border border-white/50 bg-[#0A1A2F] px-3 py-1">Referral: 10% to 15%</span>
+                  <span className="rounded-full border border-white/50 bg-[#0A1A2F] px-3 py-1">
+                    Referral: 10% to 15%
+                  </span>
                 </div>
                 <p className="mt-3 text-sm text-white">
                   AI intake included. Voice AI and premium add-ons available for a premium.
                 </p>
               </div>
             </div>
+
             <p className="mt-4 text-sm uppercase tracking-[0.18em] text-[#C6FF4D]">Includes</p>
             <ul className="mt-2 space-y-2 text-base text-white list-disc list-inside marker:text-[#C6FF4D]">
               <li>Everything in SaaS Access</li>
@@ -137,13 +149,17 @@ const LawFirmGuide = () => (
 
           <div className="rounded-2xl border border-[#4EA1FF]/40 bg-gradient-to-br from-[#0A1A2F] via-[#0D2336] to-[#1A2B1A] p-5 shadow-[0_0_35px_rgba(78,161,255,0.12)]">
             <p className="text-xs uppercase tracking-[0.2em] text-white/50">Level 4</p>
-          <h3 className="mt-2 text-lg font-semibold">White Label (Your Brand, Our Platform)</h3>
+            <h3 className="mt-2 text-lg font-semibold">White Label (Your Brand, Our Platform)</h3>
             <p className="mt-2 text-base text-white/70">
               A white-label license with monthly access plus per-ticket usage.
             </p>
             <div className="mt-4 flex flex-wrap gap-2 text-base font-bold text-white">
-              <span className="rounded-full border border-white/40 bg-[#0A1A2F] px-3 py-1">Monthly license: $1.5k to $3k</span>
-              <span className="rounded-full border border-white/40 bg-[#0A1A2F] px-3 py-1">Per-ticket usage: $5 / ticket</span>
+              <span className="rounded-full border border-white/40 bg-[#0A1A2F] px-3 py-1">
+                Monthly license: $1.5k to $3k
+              </span>
+              <span className="rounded-full border border-white/40 bg-[#0A1A2F] px-3 py-1">
+                Per-ticket usage: $5 / ticket
+              </span>
             </div>
             <p className="mt-4 text-sm uppercase tracking-[0.18em] text-white/50">Includes</p>
             <ul className="mt-2 space-y-2 text-base text-white/70">
@@ -154,37 +170,64 @@ const LawFirmGuide = () => (
               <li>Priority support</li>
             </ul>
           </div>
-        </div>
 
-        <div className="mt-6 rounded-2xl border border-white/10 bg-white/5 p-6">
-          <p className="text-sm uppercase tracking-[0.2em] text-white/50">Standalone option</p>
-          <h3 className="mt-3 text-lg font-semibold">Exclusive Buildout (Full Ownership)</h3>
-          <p className="mt-2 text-base text-white/70">
-            One-time custom build where you own the platform.
-          </p>
-          <div className="mt-4 flex flex-wrap gap-2 text-base font-bold text-white">
-            <span className="rounded-full border border-white/40 bg-[#0A1A2F] px-3 py-1">$70,000 one-time build</span>
-            <span className="rounded-full border border-white/40 bg-[#0A1A2F] px-3 py-1">Ownership: full IP and code</span>
+          {/* Level 5 full width */}
+          <div className="lg:col-span-2 rounded-2xl border border-[#4EA1FF]/40 bg-gradient-to-br from-[#0A1A2F] via-[#0D2336] to-[#1A2B1A] p-6 shadow-[0_0_35px_rgba(78,161,255,0.12)]">
+            <p className="text-xs uppercase tracking-[0.2em] text-white/50">Level 5</p>
+            <div className="flex flex-col gap-6 lg:flex-row lg:items-start lg:justify-between">
+              <div className="lg:max-w-2xl">
+                <h3 className="mt-2 text-xl font-semibold">Custom Deployment (Private Instance)</h3>
+                <p className="mt-3 text-base text-white/70">
+                  A fully customized version of the NoPo intake experience, built for your firm’s workflows, branding,
+                  and domain, powered by the NoPo engine. This is a licensed private instance, not a sale of the
+                  platform or IP.
+                </p>
+
+                <p className="mt-5 text-sm uppercase tracking-[0.18em] text-white/50">Includes</p>
+                <ul className="mt-2 space-y-2 text-base text-white/70">
+                  <li>Custom UI and branded intake experience</li>
+                  <li>Your domain (e.g., intake.yourfirm.com)</li>
+                  <li>Custom workflows, fields, and automations</li>
+                  <li>Private environment connected to the NoPo engine</li>
+                  <li>Attorney dashboard with your branding</li>
+                  <li>Training + launch support</li>
+                </ul>
+              </div>
+
+              <div className="lg:w-[420px] rounded-2xl border border-white/10 bg-[#0A1A2F]/80 p-5">
+                <p className="text-sm uppercase tracking-[0.18em] text-white/50">Pricing</p>
+                <div className="mt-3 flex flex-wrap gap-2 text-base font-bold text-white">
+                  <span className="rounded-full border border-white/40 bg-[#0A1A2F] px-3 py-1">One-time build: $35,000+</span>
+                  <span className="rounded-full border border-white/40 bg-[#0A1A2F] px-3 py-1">Monthly license: $299</span>
+                  <span className="rounded-full border border-white/40 bg-[#0A1A2F] px-3 py-1">Usage: $5 / ticket</span>
+                </div>
+
+                <p className="mt-5 text-sm uppercase tracking-[0.18em] text-white/50">Important</p>
+                <ul className="mt-2 space-y-2 text-base text-white/70">
+                  <li>This is a licensed deployment. NoPo retains all IP and backend control</li>
+                  <li>Your dev team may customize the UI layer, but cannot modify the NoPo engine</li>
+                  <li>No resale, sublicensing, or redistribution rights</li>
+                  <li>Platform access is revocable if monthly or usage fees lapse</li>
+                </ul>
+              </div>
+            </div>
           </div>
         </div>
 
         <div className="mt-6 grid gap-6 md:grid-cols-2">
           <div className="rounded-2xl border border-[#4EA1FF]/50 bg-gradient-to-br from-[#0A1A2F] via-[#0A1A2F] to-[#10253D] p-5">
             <h3 className="text-lg font-semibold text-[#4EA1FF]">Optional Add-on: Exclusive Territory</h3>
-            <p className="mt-2 text-base text-white/70">
-              Add exclusivity in a defined region to block competitors.
-            </p>
+            <p className="mt-2 text-base text-white/70">Add exclusivity in a defined region to block competitors.</p>
             <div className="mt-4 flex flex-wrap gap-2 text-base font-bold text-white">
               <span className="rounded-full border border-white/40 bg-[#0A1A2F] px-3 py-1">County: $3k to $7.5k / mo</span>
               <span className="rounded-full border border-white/40 bg-[#0A1A2F] px-3 py-1">State: $12k to $25k / mo</span>
               <span className="rounded-full border border-white/40 bg-[#0A1A2F] px-3 py-1">Plus: $5 / ticket</span>
             </div>
           </div>
+
           <div className="rounded-2xl border border-white/10 bg-[#0A1A2F] p-5">
-          <h3 className="text-lg font-semibold">SEO Add-ons (Any Level)</h3>
-          <p className="mt-2 text-base text-white/70">
-            Drive more qualified traffic to your intake page.
-          </p>
+            <h3 className="text-lg font-semibold">SEO Add-ons (Any Level)</h3>
+            <p className="mt-2 text-base text-white/70">Drive more qualified traffic to your intake page.</p>
             <div className="mt-4 grid gap-4 text-base text-white/70">
               <div>
                 <p className="text-[#C6FF4D] font-semibold">SEO Starter — $499 / month</p>
@@ -221,17 +264,10 @@ const LawFirmGuide = () => (
           </p>
         </div>
         <div className="flex flex-col sm:flex-row gap-3">
-          <Button
-            asChild
-            className="rounded-full bg-[#C6FF4D] text-[#0A1A2F] hover:bg-[#C6FF4D]/90 font-semibold"
-          >
+          <Button asChild className="rounded-full bg-[#C6FF4D] text-[#0A1A2F] hover:bg-[#C6FF4D]/90 font-semibold">
             <a href="tel:4048890186">Call 404.889.0186</a>
           </Button>
-          <Button
-            asChild
-            variant="outline"
-            className="rounded-full border-white/20 text-white hover:bg-white/10"
-          >
+          <Button asChild variant="outline" className="rounded-full border-white/20 text-white hover:bg-white/10">
             <a href="mailto:indigowebdesigns@gmail.com">Email indigowebdesigns@gmail.com</a>
           </Button>
         </div>
