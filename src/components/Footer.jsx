@@ -54,6 +54,13 @@ const Footer = () => {
                 * Citation Nation is not a law firm. We provide informational analysis and connect users to independent attorneys.
               </li>
             </ul>
+            <div>
+              <h3 className="text-white font-bold mb-6">Admin Links</h3>
+              <ul className="space-y-4">
+                <FooterLink to="/admin-onboard">System Admin Command Center</FooterLink>
+                <FooterLink to="/admin">Firm Admin Dashboard</FooterLink>
+              </ul>
+            </div>
           </div>
 
           {/* Contact Column */}
