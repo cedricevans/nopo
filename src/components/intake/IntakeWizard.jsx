@@ -11,13 +11,15 @@ import {
   Gavel, 
   FileText,
   Sparkles,
-  Maximize2
+  Maximize2,
+  Loader2
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { useToast } from '@/components/ui/use-toast';
 import { useNavigate } from 'react-router-dom';
+import { createCase } from '@/lib/createCaseApi';
 
 const steps = [
   { id: 'driver', title: 'Driver Info', icon: User },
@@ -38,6 +40,8 @@ const IntakeWizard = ({ initialData, ticketImage }) => {
     state: '',
     zip: '',
     dlNumber: '',
+    email: '',
+    phone: '',
     vehicleMake: '',
     vehicleModel: '',
     vehicleYear: '',
@@ -50,6 +54,7 @@ const IntakeWizard = ({ initialData, ticketImage }) => {
     courtName: '',
   });
   const [isImageExpanded, setIsImageExpanded] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const { toast } = useToast();
   const navigate = useNavigate();
@@ -66,6 +71,8 @@ const IntakeWizard = ({ initialData, ticketImage }) => {
         state: initialData.driver?.state || '',
         zip: initialData.driver?.zip || '',
         dlNumber: initialData.driver?.dlNumber || '',
+        email: initialData.extra?.email || '',
+        phone: initialData.extra?.phone || '',
         vehicleMake: initialData.vehicle?.make || '',
         vehicleModel: initialData.vehicle?.model || '', // Might be missing in OCR
         vehicleYear: initialData.vehicle?.year || '',
@@ -87,13 +94,63 @@ const IntakeWizard = ({ initialData, ticketImage }) => {
     }
   }, [initialData, toast]);
 
-  const handleNext = () => {
+  const handleNext = async () => {
     if (currentStep < steps.length - 1) {
       setDirection(1);
       setCurrentStep(curr => curr + 1);
     } else {
-      // Submit
-      navigate('/confirmation', { state: { caseData: formData } });
+      if (!formData.phone) {
+        toast({
+          variant: 'destructive',
+          title: 'Phone required',
+          description: 'Please enter a phone number for tracking verification.',
+        });
+        return;
+      }
+
+      setIsSubmitting(true);
+
+      try {
+        const contactName = `${formData.firstName} ${formData.lastName}`.trim();
+        const tenantId = import.meta.env.VITE_TENANT_ID || '';
+
+        const result = await createCase({
+          tenantId: tenantId || undefined,
+          contactName: contactName || null,
+          contactEmail: formData.email || null,
+          contactPhone: formData.phone,
+          summary: null,
+          nextSteps: null,
+          extra: {
+            intake: formData,
+            ticketImage: ticketImage || null,
+          },
+        });
+
+        navigate('/confirmation', {
+          state: {
+            caseData: {
+              ...formData,
+              ticketImage: ticketImage || null,
+              tracking: result.tracking,
+              tracking_code: result.case?.tracking_code,
+              tracking_verifier_hint: result.case?.tracking_verifier_hint,
+              caseId: result.case?.id,
+              caseStatus: result.case?.status,
+              createdAt: result.case?.created_at,
+            },
+          },
+        });
+      } catch (error) {
+        const message = error?.message || 'Unable to submit intake right now.';
+        toast({
+          variant: 'destructive',
+          title: 'Submission failed',
+          description: message,
+        });
+      } finally {
+        setIsSubmitting(false);
+      }
     }
   };
 
@@ -212,6 +269,16 @@ const IntakeWizard = ({ initialData, ticketImage }) => {
                     <Label className="text-white">License Number</Label>
                     <Input name="dlNumber" value={formData.dlNumber} onChange={handleChange} className="bg-white/5 border-white/10 text-white" />
                   </div>
+                  <div className="grid grid-cols-2 gap-4">
+                    <div className="space-y-2">
+                      <Label className="text-white">Email Address</Label>
+                      <Input type="email" name="email" value={formData.email} onChange={handleChange} className="bg-white/5 border-white/10 text-white" />
+                    </div>
+                    <div className="space-y-2">
+                      <Label className="text-white">Phone Number</Label>
+                      <Input type="tel" name="phone" value={formData.phone} onChange={handleChange} className="bg-white/5 border-white/10 text-white" />
+                    </div>
+                  </div>
                 </div>
               )}
 
@@ -318,9 +385,20 @@ const IntakeWizard = ({ initialData, ticketImage }) => {
           </Button>
           <Button
             onClick={handleNext}
+            disabled={isSubmitting}
             className="bg-[#C6FF4D] text-[#0A1A2F] hover:bg-[#C6FF4D]/90 font-bold w-28"
           >
-            {currentStep === steps.length - 1 ? 'Submit' : 'Next'} <ArrowRight className="ml-2 h-4 w-4" />
+            {isSubmitting ? (
+              <>
+                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                Submitting
+              </>
+            ) : (
+              <>
+                {currentStep === steps.length - 1 ? 'Submit' : 'Next'}
+                <ArrowRight className="ml-2 h-4 w-4" />
+              </>
+            )}
           </Button>
         </div>
       </div>

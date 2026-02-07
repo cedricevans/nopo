@@ -58,7 +58,7 @@ function SidebarItem({ item, active, onClick }) {
       type="button"
       onClick={onClick}
       className={[
-        "w-full flex items-center gap-2 rounded-lg px-3 py-2 text-sm transition-colors",
+        "w-full flex items-center gap-2 rounded-2xl px-3 py-2 text-sm transition-colors",
         active
           ? "bg-[#C6FF4D]/10 text-[#C6FF4D] border border-[#C6FF4D]/25"
           : "text-white/80 hover:text-white hover:bg-white/5 border border-transparent",
@@ -72,7 +72,7 @@ function SidebarItem({ item, active, onClick }) {
 
 function MetricCard({ label, value, sub }) {
   return (
-    <Card className="shadow-sm">
+          <Card className="shadow-sm rounded-3xl">
       <CardHeader>
         <CardTitle className="text-xs uppercase tracking-[0.2em] text-white/60">{label}</CardTitle>
       </CardHeader>
@@ -86,7 +86,7 @@ function MetricCard({ label, value, sub }) {
 
 function EmptyState({ title, description, action }) {
   return (
-    <Card className="border border-white/10 bg-[#071225]">
+          <Card className="border border-white/10 bg-[#071225] rounded-2xl">
       <CardContent className="py-10 text-center">
         <div className="text-white font-semibold">{title}</div>
         <div className="mt-2 text-sm text-white/60">{description}</div>
@@ -293,15 +293,15 @@ export default function SystemAdminDashboard() {
           </div>
 
           <div className="mt-4 grid grid-cols-3 gap-2">
-            <div className="rounded-lg border border-white/10 bg-white/5 p-2">
+            <div className="rounded-2xl border border-white/10 bg-white/5 p-2">
               <div className="text-[10px] text-white/50 uppercase tracking-[0.2em]">Tenants</div>
               <div className="text-white font-semibold">{overview.totalTenants}</div>
             </div>
-            <div className="rounded-lg border border-white/10 bg-white/5 p-2">
+            <div className="rounded-2xl border border-white/10 bg-white/5 p-2">
               <div className="text-[10px] text-white/50 uppercase tracking-[0.2em]">Users</div>
               <div className="text-white font-semibold">{overview.totalUsers}</div>
             </div>
-            <div className="rounded-lg border border-white/10 bg-white/5 p-2">
+            <div className="rounded-2xl border border-white/10 bg-white/5 p-2">
               <div className="text-[10px] text-white/50 uppercase tracking-[0.2em]">Tickets</div>
               <div className="text-white font-semibold">{overview.totalTickets}</div>
             </div>
@@ -327,7 +327,7 @@ export default function SystemAdminDashboard() {
         </div>
 
         <div className="px-4 pb-5">
-          <div className="rounded-xl border border-white/10 bg-white/5 p-3">
+          <div className="rounded-3xl border border-white/10 bg-white/5 p-3">
             <div className="text-xs text-white/70">Quick actions</div>
             <div className="mt-3 grid grid-cols-2 gap-2">
               <Button
@@ -363,7 +363,7 @@ export default function SystemAdminDashboard() {
               <button
                 type="button"
                 onClick={() => setMobileOpen(true)}
-                className="md:hidden rounded-md p-2 text-white/90 bg-white/5 border border-white/10"
+                className="md:hidden rounded-2xl p-2 text-white/90 bg-white/5 border border-white/10"
                 aria-label="Open admin menu"
               >
                 <Menu className="w-5 h-5" />
@@ -375,7 +375,7 @@ export default function SystemAdminDashboard() {
                     key={item.key}
                     onClick={() => { setSelectedTenant(null); setActiveView(item.key); }}
                     className={[
-                      "text-sm px-3 py-2 rounded-md",
+                      "text-sm px-3 py-2 rounded-2xl",
                       activeView === item.key
                         ? "bg-[#C6FF4D]/10 text-[#C6FF4D]"
                         : "text-white/80 hover:bg-white/5",
@@ -398,7 +398,7 @@ export default function SystemAdminDashboard() {
               </Button>
               <a
                 href="/"
-                className="ml-3 inline-flex items-center rounded-md px-3 py-2 text-sm bg-transparent text-white/80 hover:bg-white/5"
+                className="ml-3 inline-flex items-center rounded-2xl px-3 py-2 text-sm bg-transparent text-white/80 hover:bg-white/5"
               >
                 Return to site
               </a>
@@ -411,9 +411,9 @@ export default function SystemAdminDashboard() {
 
   const Shell = ({ children }) => {
     return (
-      <div className="min-h-[70vh] mt-[20px] mb-[30px]">
-        <div className="max-w-7xl mx-auto px-4 md:px-6">
-          <div className="relative rounded-2xl border border-[#C6FF4D]/20 bg-[#0A1A2F] shadow-lg overflow-hidden font-sans">
+      <div className="min-h-[70vh] mt-[20px] mb-[30px] w-full">
+        <div className="w-full mx-auto px-6">
+          <div className="relative w-full rounded-3xl border border-[#C6FF4D]/20 bg-[#0A1A2F] shadow-lg overflow-hidden font-sans">
             <AdminTopBar />
 
             <div className="grid grid-cols-1 lg:grid-cols-[280px_1fr]">
@@ -444,7 +444,7 @@ export default function SystemAdminDashboard() {
                       <button
                       type="button"
                       onClick={() => setMobileOpen(false)}
-                      className="rounded-md p-2 text-white/90 bg-white/5 border border-white/10"
+                      className="rounded-2xl p-2 text-white/90 bg-white/5 border border-white/10"
                       aria-label="Close menu"
                     >
                       <X className="w-5 h-5" />
@@ -469,56 +469,77 @@ export default function SystemAdminDashboard() {
   const OverviewView = () => {
     return (
       <>
-        <PageHeader title="Command Center" subtitle="Operational view of tenants, users, and tickets." />
+        <PageHeader title="Command Center" subtitle="Quick access to all critical admin actions and live data." />
 
-        <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
-          <MetricCard label="Total tenants" value={overview.totalTenants} />
-          <MetricCard label="Total users" value={overview.totalUsers} />
-          <MetricCard label="Total tickets" value={overview.totalTickets} />
-          <MetricCard label="Tickets in review" value={overview.inReview} sub={`Open ${overview.open}, Closed ${overview.closed}`} />
+        {/* Metrics and Quick Actions Row */}
+        <div className="w-full flex flex-col xl:flex-row gap-6 mb-8">
+          <div className="flex-1 grid grid-cols-2 md:grid-cols-4 gap-4">
+            <MetricCard label="Total tenants" value={overview.totalTenants} />
+            <MetricCard label="Total users" value={overview.totalUsers} />
+            <MetricCard label="Total tickets" value={overview.totalTickets} />
+            <MetricCard label="Tickets in review" value={overview.inReview} sub={`Open ${overview.open}, Closed ${overview.closed}`} />
+          </div>
+          <div className="flex flex-col gap-3 min-w-[220px]">
+            <Button
+              className="w-full bg-[#C6FF4D] text-[#0A1A2F] font-bold text-base py-3 rounded-2xl shadow-md hover:bg-[#C6FF4D]/90 transition"
+              onClick={() => setActiveView('onboarding')}
+            >
+              <UserPlus className="w-5 h-5 mr-2" /> New Tenant
+            </Button>
+            <Button
+              className="w-full bg-[#101C33] text-white font-semibold text-base py-3 rounded-2xl border border-white/10 hover:bg-[#0A1A2F] transition"
+              onClick={() => setActiveView('tickets')}
+            >
+              <Ticket className="w-5 h-5 mr-2" /> View Tickets
+            </Button>
+            <Button
+              className="w-full bg-[#101C33] text-white font-semibold text-base py-3 rounded-2xl border border-white/10 hover:bg-[#0A1A2F] transition"
+              onClick={() => setActiveView('tenants')}
+            >
+              <Building2 className="w-5 h-5 mr-2" /> View Tenants
+            </Button>
+          </div>
         </div>
 
-        <div className="grid gap-4 lg:grid-cols-2">
-          <Card className="border border-white/10 bg-[#071225]">
-            <CardHeader className="pb-2">
-              <CardTitle className="text-base text-white">Latest tickets</CardTitle>
+        {/* Latest Activity Row */}
+        <div className="w-full grid grid-cols-1 md:grid-cols-2 gap-6">
+          {/* Latest Tickets */}
+          <Card className="bg-gradient-to-br from-[#101C33] to-[#071225] border-0 shadow-xl p-0">
+            <CardHeader className="pb-4 border-b border-white/10">
+              <CardTitle className="text-lg font-bold text-white flex items-center gap-2">
+                <Ticket className="w-5 h-5 text-[#C6FF4D]" /> Latest Tickets
+              </CardTitle>
             </CardHeader>
-            <CardContent className="pt-0">
+            <CardContent className="py-6 px-4 md:px-8">
               {overview.latestTickets.length ? (
-                <div className="space-y-2">
+                <div className="space-y-3">
                   {overview.latestTickets.map((t) => {
                     const tenantName = tenantById.get(t.tenant_id)?.name || "N/A";
                     return (
                       <div
                         key={t.id}
-                        className="flex items-center justify-between gap-3 rounded-lg border border-white/10 bg-white/5 px-3 py-2"
+                        className="flex items-center justify-between gap-3 rounded-2xl border border-white/10 bg-white/5 px-3 py-2 hover:bg-[#C6FF4D]/5 transition"
                       >
                         <div className="min-w-0">
-                          <div className="text-sm text-white truncate">
+                          <div className="text-base text-white truncate font-semibold">
                             Ticket {t.ticket_number || String(t.id).slice(0, 8)}
                           </div>
                           <div className="text-xs text-white/60 truncate">
                             {tenantName} · {formatDate(t.created_at)}
                           </div>
                         </div>
-
                         <div className="flex items-center gap-2">
                           <span
-                            className={[
-                              "text-[11px] px-2 py-1 rounded-md border whitespace-nowrap",
-                              statusBadgeClass(t.status),
-                            ].join(" ")}
+                            className={["text-xs px-2 py-1 rounded-2xl border whitespace-nowrap font-semibold", statusBadgeClass(t.status)].join(" ")}
                           >
                             {t.status || "Unknown"}
                           </span>
                           <Button
                             size="sm"
-                            variant="outline"
-                            className="border-white/10 bg-white/5 text-white hover:bg-white/10"
-                            onClick={() => setActiveView("tickets")}
+                            className="bg-[#C6FF4D] text-[#0A1A2F] font-bold hover:bg-[#C6FF4D]/90 px-3 py-1 rounded-2xl"
+                            onClick={() => setActiveView('tickets')}
                           >
-                            View
-                            <ArrowRight className="w-4 h-4 ml-2" />
+                            View <ArrowRight className="w-4 h-4 ml-1" />
                           </Button>
                         </div>
                       </div>
@@ -531,36 +552,36 @@ export default function SystemAdminDashboard() {
             </CardContent>
           </Card>
 
-          <Card className="border border-white/10 bg-[#071225]">
-            <CardHeader className="pb-2">
-              <CardTitle className="text-base text-white">Latest tenants</CardTitle>
+          {/* Latest Tenants */}
+          <Card className="bg-gradient-to-br from-[#101C33] to-[#071225] border-0 shadow-xl p-0">
+            <CardHeader className="pb-4 border-b border-white/10">
+              <CardTitle className="text-lg font-bold text-white flex items-center gap-2">
+                <Building2 className="w-5 h-5 text-[#C6FF4D]" /> Latest Tenants
+              </CardTitle>
             </CardHeader>
-            <CardContent className="pt-0">
+            <CardContent className="py-6 px-4 md:px-8">
               {overview.latestTenants.length ? (
-                <div className="space-y-2">
+                <div className="space-y-3">
                   {overview.latestTenants.map((t) => (
                     <div
                       key={t.id}
-                      className="flex items-center justify-between gap-3 rounded-lg border border-white/10 bg-white/5 px-3 py-2"
+                      className="flex items-center justify-between gap-3 rounded-2xl border border-white/10 bg-white/5 px-3 py-2 hover:bg-[#C6FF4D]/5 transition"
                     >
                       <div className="min-w-0">
-                        <div className="text-sm text-white truncate">{t.name || "Unnamed tenant"}</div>
+                        <div className="text-base text-white truncate font-semibold">{t.name || "Unnamed tenant"}</div>
                         <div className="text-xs text-white/60 truncate">
                           {t.domain || "No domain"} · {formatDate(t.created_at)}
                         </div>
                       </div>
-
                       <Button
                         size="sm"
-                        variant="outline"
-                        className="border-white/10 bg-white/5 text-white hover:bg-white/10"
+                        className="bg-[#C6FF4D] text-[#0A1A2F] font-bold hover:bg-[#C6FF4D]/90 px-3 py-1 rounded-2xl"
                         onClick={() => {
                           setSelectedTenant(t);
-                          setActiveView("tenants");
+                          setActiveView('tenants');
                         }}
                       >
-                        View
-                        <ArrowRight className="w-4 h-4 ml-2" />
+                        View <ArrowRight className="w-4 h-4 ml-1" />
                       </Button>
                     </div>
                   ))}
@@ -587,34 +608,34 @@ export default function SystemAdminDashboard() {
             </CardHeader>
             <CardContent className="space-y-3">
               <div className="grid gap-3 md:grid-cols-3">
-                <div className="rounded-lg border border-white/10 bg-white/5 p-3">
+                <div className="rounded-2xl border border-white/10 bg-white/5 p-3">
                   <div className="text-[10px] uppercase tracking-[0.2em] text-white/50">Domain</div>
                   <div className="mt-1 text-sm text-white">{selectedTenant.domain || "N/A"}</div>
                 </div>
-                <div className="rounded-lg border border-white/10 bg-white/5 p-3">
+                <div className="rounded-2xl border border-white/10 bg-white/5 p-3">
                   <div className="text-[10px] uppercase tracking-[0.2em] text-white/50">Created</div>
                   <div className="mt-1 text-sm text-white">{formatDate(selectedTenant.created_at)}</div>
                 </div>
-                <div className="rounded-lg border border-white/10 bg-white/5 p-3">
+                <div className="rounded-2xl border border-white/10 bg-white/5 p-3">
                   <div className="text-[10px] uppercase tracking-[0.2em] text-white/50">Tenant ID</div>
                   <div className="mt-1 text-sm text-white truncate">{selectedTenant.id}</div>
                 </div>
               </div>
 
-              <div className="rounded-lg border border-white/10 bg-white/5 p-3 text-sm text-white/70">
+              <div className="rounded-2xl border border-white/10 bg-white/5 p-3 text-sm text-white/70">
                 Tenant drilldown panels go here: users, tickets, payments, logs.
               </div>
 
               <div className="flex gap-2">
                 <Button
                   variant="outline"
-                  className="border-white/10 bg-white/5 text-white hover:bg-white/10"
+                  className="border-white/10 bg-white/5 text-white hover:bg-white/10 rounded-2xl"
                   onClick={() => setSelectedTenant(null)}
                 >
                   Back
                 </Button>
                 <Button
-                  className="bg-[#C6FF4D] text-[#0A1A2F] font-bold hover:bg-[#C6FF4D]/90"
+                  className="bg-[#C6FF4D] text-[#0A1A2F] font-bold hover:bg-[#C6FF4D]/90 rounded-2xl"
                   onClick={() => setActiveView("tickets")}
                 >
                   View tickets
@@ -711,8 +732,8 @@ export default function SystemAdminDashboard() {
       <>
         <PageHeader title="Users" subtitle="Search and review all platform users." />
 
-        <Card className="border border-white/10 bg-[#071225]">
-          <CardHeader className="pb-2">
+        <Card className="border border-white/10 bg-[#071225] rounded-2xl">
+          <CardHeader className="pb-2 rounded-t-2xl">
             <div className="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
               <CardTitle className="text-white text-base">All users</CardTitle>
               <div className="w-full md:w-[320px]">
@@ -720,12 +741,12 @@ export default function SystemAdminDashboard() {
                   value={userSearch}
                   onChange={(e) => setUserSearch(e.target.value)}
                   placeholder="Search users"
-                  className="bg-[#0A1A2F] border-white/10 text-white placeholder:text-white/40"
+                  className="bg-[#0A1A2F] border-white/10 text-white placeholder:text-white/40 rounded-2xl"
                 />
               </div>
             </div>
           </CardHeader>
-          <CardContent className="pt-0">
+          <CardContent className="pt-0 rounded-b-2xl">
             {filteredUsers.length ? (
               <div className="overflow-x-auto">
                 <table className="min-w-full text-base">
@@ -773,8 +794,8 @@ export default function SystemAdminDashboard() {
         <PageHeader title="Tickets" subtitle="Operational queue for support and case handling." />
 
         <div className="grid gap-4 lg:grid-cols-[1fr_360px]">
-          <Card className="border border-white/10 bg-[#071225]">
-            <CardHeader className="pb-2">
+          <Card className="border border-white/10 bg-[#071225] rounded-2xl">
+            <CardHeader className="pb-2 rounded-t-2xl">
               <div className="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
                 <CardTitle className="text-white text-base">All tickets</CardTitle>
                 <div className="w-full md:w-[320px]">
@@ -782,13 +803,13 @@ export default function SystemAdminDashboard() {
                     value={ticketSearch}
                     onChange={(e) => setTicketSearch(e.target.value)}
                     placeholder="Search tickets"
-                    className="bg-[#0A1A2F] border-white/10 text-white placeholder:text-white/40"
+                    className="bg-[#0A1A2F] border-white/10 text-white placeholder:text-white/40 rounded-2xl"
                   />
                 </div>
               </div>
             </CardHeader>
 
-            <CardContent className="pt-0">
+            <CardContent className="pt-0 rounded-b-2xl">
               {filteredTickets.length ? (
                 <div className="overflow-x-auto">
                   <table className="min-w-full text-base">
@@ -810,10 +831,7 @@ export default function SystemAdminDashboard() {
                             </td>
                             <td className="py-3 pr-4">
                               <span
-                                className={[
-                                  "text-[11px] px-2 py-1 rounded-md border whitespace-nowrap",
-                                  statusBadgeClass(t.status),
-                                ].join(" ")}
+                                className={["text-[11px] px-2 py-1 rounded-2xl border whitespace-nowrap", statusBadgeClass(t.status),].join(" ")}
                               >
                                 {t.status || "Unknown"}
                               </span>
@@ -832,11 +850,11 @@ export default function SystemAdminDashboard() {
             </CardContent>
           </Card>
 
-          <Card className="border border-white/10 bg-[#071225]">
-            <CardHeader className="pb-2">
+          <Card className="border border-white/10 bg-[#071225] rounded-2xl">
+            <CardHeader className="pb-2 rounded-t-2xl">
               <CardTitle className="text-white text-base">Queue filters</CardTitle>
             </CardHeader>
-            <CardContent className="space-y-3">
+            <CardContent className="space-y-3 rounded-b-2xl">
               <div className="text-xs uppercase tracking-[0.2em] text-white/50">Status</div>
               <div className="flex flex-wrap gap-2">
                 {distinctStatuses.map((s) => (
@@ -845,7 +863,7 @@ export default function SystemAdminDashboard() {
                     size="sm"
                     variant="outline"
                     className={[
-                      "border-white/10 bg-white/5 text-white hover:bg-white/10",
+                      "border-white/10 bg-white/5 text-white hover:bg-white/10 rounded-2xl",
                       ticketStatus === s ? "border-[#C6FF4D]/40 text-[#C6FF4D]" : "",
                     ].join(" ")}
                     onClick={() => setTicketStatus(s)}
@@ -855,7 +873,7 @@ export default function SystemAdminDashboard() {
                 ))}
               </div>
 
-              <div className="pt-2 rounded-lg border border-white/10 bg-white/5 p-3 text-sm text-white/70">
+              <div className="pt-2 rounded-2xl border border-white/10 bg-white/5 p-3 text-sm text-white/70">
                 Payments and audit logs link into ticket activity once those tables exist.
               </div>
             </CardContent>
@@ -892,64 +910,92 @@ export default function SystemAdminDashboard() {
   const OnboardingView = () => {
     return (
       <>
-        <PageHeader title="Onboarding" subtitle="Create a tenant and set up an admin user." />
-
-        <div className="grid gap-4 lg:grid-cols-[1fr_420px]">
-          <Card className="border border-white/10 bg-[#071225]">
-            <CardHeader className="pb-2">
-              <CardTitle className="text-white text-base">Create tenant</CardTitle>
+        <PageHeader
+          title="Onboarding"
+          subtitle="Create a tenant and set up an admin user."
+        />
+        <div className="w-full flex flex-col xl:flex-row gap-8 mt-8">
+          {/* Tenant Creation Card */}
+          <Card className="flex-1 bg-gradient-to-br from-[#101C33] to-[#071225] border-0 shadow-xl rounded-2xl p-0">
+            <CardHeader className="pb-6 border-b border-white/10">
+              <CardTitle className="text-2xl md:text-3xl font-bold text-white flex items-center gap-3">
+                <UserPlus className="w-7 h-7 text-[#C6FF4D]" />
+                Create Tenant
+              </CardTitle>
+              <p className="text-white/60 text-base mt-2">Set up your law firm and admin user in a few quick steps.</p>
             </CardHeader>
-            <CardContent>
-              <form onSubmit={handleCreateTenant} className="space-y-3">
-                <Input
-                  placeholder="Firm name"
-                  value={tenantName}
-                  onChange={(e) => setTenantName(e.target.value)}
-                  required
-                  className="bg-[#0A1A2F] border-white/10 text-white placeholder:text-white/40"
-                />
-                <Input
-                  placeholder="Firm domain"
-                  value={tenantDomain}
-                  onChange={(e) => setTenantDomain(e.target.value)}
-                  className="bg-[#0A1A2F] border-white/10 text-white placeholder:text-white/40"
-                />
-                <Input
-                  placeholder="Admin email"
-                  value={adminEmail}
-                  onChange={(e) => setAdminEmail(e.target.value)}
-                  required
-                  className="bg-[#0A1A2F] border-white/10 text-white placeholder:text-white/40"
-                />
-
+            <CardContent className="py-10 px-6 md:px-12">
+              <form onSubmit={handleCreateTenant} className="space-y-7">
+                <div>
+                  <label className="block text-white/80 text-base mb-2 font-semibold" htmlFor="firm-name">Firm Name</label>
+                  <Input
+                    id="firm-name"
+                    placeholder="e.g. Justice Partners LLP"
+                    value={tenantName}
+                    onChange={(e) => setTenantName(e.target.value)}
+                    required
+                    className="bg-[#101C33] border-white/10 text-white placeholder:text-white/40 focus:ring-2 focus:ring-[#C6FF4D] focus:border-[#C6FF4D] text-lg rounded-2xl py-3 px-4"
+                  />
+                </div>
+                <div>
+                  <label className="block text-white/80 text-base mb-2 font-semibold" htmlFor="firm-domain">Firm Domain</label>
+                  <Input
+                    id="firm-domain"
+                    placeholder="e.g. justicepartners.com"
+                    value={tenantDomain}
+                    onChange={(e) => setTenantDomain(e.target.value)}
+                    className="bg-[#101C33] border-white/10 text-white placeholder:text-white/40 focus:ring-2 focus:ring-[#C6FF4D] focus:border-[#C6FF4D] text-lg rounded-2xl py-3 px-4"
+                  />
+                </div>
+                <div>
+                  <label className="block text-white/80 text-base mb-2 font-semibold" htmlFor="admin-email">Admin Email</label>
+                  <Input
+                    id="admin-email"
+                    placeholder="e.g. admin@justicepartners.com"
+                    value={adminEmail}
+                    onChange={(e) => setAdminEmail(e.target.value)}
+                    required
+                    className="bg-[#101C33] border-white/10 text-white placeholder:text-white/40 focus:ring-2 focus:ring-[#C6FF4D] focus:border-[#C6FF4D] text-lg rounded-2xl py-3 px-4"
+                  />
+                </div>
                 <Button
                   type="submit"
                   disabled={onboardLoading}
-                  className="w-full bg-[#C6FF4D] text-[#0A1A2F] font-bold hover:bg-[#C6FF4D]/90"
+                  className="w-full bg-[#C6FF4D] text-[#0A1A2F] font-bold text-lg py-3 rounded-2xl shadow-md hover:bg-[#C6FF4D]/90 transition"
                 >
-                  {onboardLoading ? "Creating..." : "Create tenant"}
+                  {onboardLoading ? "Creating..." : "Create Tenant"}
                 </Button>
               </form>
             </CardContent>
           </Card>
 
-          <Card className="border border-white/10 bg-[#071225]">
-            <CardHeader className="pb-2">
-              <CardTitle className="text-white text-base">Checklist</CardTitle>
+          {/* Checklist Card */}
+          <Card className="w-full max-w-xl bg-gradient-to-br from-[#101C33] to-[#071225] border-0 shadow-xl rounded-2xl p-0 mt-8 xl:mt-0 xl:ml-4">
+            <CardHeader className="pb-6 border-b border-white/10">
+              <CardTitle className="text-2xl md:text-3xl font-bold text-white flex items-center gap-3">
+                <span className="inline-block w-7 h-7 rounded-full bg-[#C6FF4D]" />
+                Onboarding Checklist
+              </CardTitle>
             </CardHeader>
-            <CardContent className="space-y-2 text-sm text-white/70">
-              <div className="rounded-lg border border-white/10 bg-white/5 p-3">
-                1. Create tenant record.
-              </div>
-              <div className="rounded-lg border border-white/10 bg-white/5 p-3">
-                2. Create admin user, link to tenant.
-              </div>
-              <div className="rounded-lg border border-white/10 bg-white/5 p-3">
-                3. Confirm domain, branding, and firm contact info.
-              </div>
-              <div className="rounded-lg border border-white/10 bg-white/5 p-3">
-                4. Verify ticket intake and payment routing.
-              </div>
+            <CardContent className="py-10 px-6 md:px-10">
+              <ol className="space-y-6 text-lg text-white/90">
+                <li className="flex items-start gap-4">
+                  <span className="mt-1 w-8 h-8 flex items-center justify-center rounded-full bg-[#C6FF4D]/20 border border-[#C6FF4D]/40 text-[#C6FF4D] font-bold text-xl">1</span>
+                  <span>Create tenant record</span>
+                </li>
+                <li className="flex items-start gap-4">
+                  <span className="mt-1 w-8 h-8 flex items-center justify-center rounded-full bg-[#C6FF4D]/20 border border-[#C6FF4D]/40 text-[#C6FF4D] font-bold text-xl">2</span>
+                  <span>Create admin user, link to tenant</span>
+                </li>
+                <li className="flex items-start gap-4">
+                  <span className="mt-1 w-8 h-8 flex items-center justify-center rounded-full bg-[#C6FF4D]/20 border border-[#C6FF4D]/40 text-[#C6FF4D] font-bold text-xl">3</span>
+                  <span>Confirm domain, branding, and firm contact info</span>
+                </li>
+                <li className="flex items-start gap-4">
+                  <span className="mt-1 w-8 h-8 flex items-center justify-center rounded-full bg-[#C6FF4D]/20 border border-[#C6FF4D]/40 text-[#C6FF4D] font-bold text-xl">4</span>
+                  <span>Verify ticket intake and payment routing</span>
+                </li>
+              </ol>
             </CardContent>
           </Card>
         </div>
