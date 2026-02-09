@@ -20,14 +20,6 @@ const Confirmation = () => {
   const navigate = useNavigate();
   const { toast } = useToast();
   const { caseData } = location.state || {};
-  const trackingCode =
-    caseData?.tracking?.tracking_code ||
-    caseData?.tracking_code ||
-    '';
-  const trackingHint =
-    caseData?.tracking?.verifier_hint ||
-    caseData?.tracking_verifier_hint ||
-    '';
   
 
   useEffect(() => {
@@ -126,20 +118,6 @@ const Confirmation = () => {
               but you are not hiring a lawyer unless you separately retain one. Results vary, and you assume all risk in using this information.
             </p>
           </div>
-
-          {trackingCode ? (
-            <div className="bg-[#C6FF4D]/10 border border-[#C6FF4D]/30 rounded-xl p-5 mb-6 text-center print:hidden">
-              <div className="text-xs uppercase tracking-[0.3em] text-[#C6FF4D] font-bold">
-                Tracking Code
-              </div>
-              <div className="text-3xl sm:text-4xl font-black text-white mt-2 tracking-[0.25em]">
-                {trackingCode}
-              </div>
-              <div className="text-sm text-white/70 mt-2">
-                Verification: {trackingHint || 'Use the phone number you provided.'}
-              </div>
-            </div>
-          ) : null}
 
           <motion.div 
             initial={{ y: 20, opacity: 0 }}
