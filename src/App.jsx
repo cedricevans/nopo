@@ -1,10 +1,9 @@
 
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
-import SupabaseTest from '@/components/SupabaseTest';
 import Home from '@/pages/Home';
 import UploadTicket from '@/pages/UploadTicket';
 import Intake from '@/pages/Intake';
@@ -32,59 +31,8 @@ import AttorneyChat from '@/pages/AttorneyChat';
 import InvestorGuide from '@/pages/InvestorGuide';
 import LawFirmGuide from '@/pages/LawFirmGuide';
 import AdminDashboard from '@/pages/AdminDashboard';
-import SystemAdminDashboard from '@/pages/SystemAdminDashboard';
 import { Toaster } from '@/components/ui/toaster';
 import ScrollToTop from '@/components/ScrollToTop';
-
-function AppLayout() {
-  const location = useLocation();
-  const pathname = location?.pathname || '';
-  const isAdminRoute = pathname.startsWith('/admin');
-
-  return (
-    <div className="min-h-screen bg-[#0A1A2F] text-white font-sans selection:bg-[#C6FF4D] selection:text-[#0A1A2F] flex flex-col">
-      {!isAdminRoute && <Header />}
-
-      <div className="flex-grow">
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/upload-ticket" element={<UploadTicket />} />
-          <Route path="/intake" element={<Intake />} />
-          <Route path="/eligibility" element={<Eligibility />} />
-          <Route path="/tracker" element={<Tracker />} />
-          <Route path="/pricing" element={<Pricing />} />
-          <Route path="/attorney" element={<Attorney />} />
-          <Route path="/case-progress" element={<CaseProgress />} />
-          <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="/outcome" element={<Outcome />} />
-          <Route path="/case-results" element={<CaseResults />} />
-          <Route path="/voice" element={<VoiceAssistant />} />
-          <Route path="/how-it-works" element={<HowItWorks />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/about-app" element={<AboutThisApp />} />
-          <Route path="/contact" element={<Contact />} />
-          <Route path="/resources" element={<Resources />} />
-          <Route path="/quick-tips" element={<QuickTips />} /> {/* Route for QuickTips */}
-          <Route path="/legal-disclaimer" element={<LegalDisclaimer />} />
-          <Route path="/terms" element={<Terms />} />
-          <Route path="/confirmation" element={<Confirmation />} />
-          <Route path="/lawyer-matching" element={<LawyerMatching />} />
-          <Route path="/lawyer-confirmation" element={<LawyerConfirmation />} />
-          <Route path="/attorney-chat" element={<AttorneyChat />} />
-          <Route path="/investor-guide" element={<InvestorGuide />} />
-          <Route path="/law-firm-guide" element={<LawFirmGuide />} />
-          <Route path="/admin" element={<AdminDashboard />} />
-          <Route path="*" element={<Home />} />
-          <Route path="/supabase-test" element={<SupabaseTest />} />
-          <Route path="/admin-onboard" element={<SystemAdminDashboard />} />
-        </Routes>
-      </div>
-
-      {!isAdminRoute && <Footer />}
-      <Toaster />
-    </div>
-  );
-}
 
 function App() {
   return (
@@ -93,10 +41,48 @@ function App() {
         <title>Citation Nation - Traffic Ticket Defense Strategies</title>
         <meta name="description" content="Choose between affordable DIY defense strategies or professional legal representation for your traffic ticket. Save money and protect your driving record." />
       </Helmet>
-
+      
       <ScrollToTop />
 
-      <AppLayout />
+      <div className="min-h-screen bg-[#0A1A2F] text-white font-sans selection:bg-[#C6FF4D] selection:text-[#0A1A2F] flex flex-col">
+        <Header />
+        
+        <div className="flex-grow">
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/upload-ticket" element={<UploadTicket />} />
+            <Route path="/intake" element={<Intake />} />
+            <Route path="/eligibility" element={<Eligibility />} />
+            <Route path="/tracker" element={<Tracker />} />
+            <Route path="/pricing" element={<Pricing />} />
+            <Route path="/attorney" element={<Attorney />} />
+            <Route path="/case-progress" element={<CaseProgress />} />
+            <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/outcome" element={<Outcome />} />
+            <Route path="/case-results" element={<CaseResults />} />
+            <Route path="/voice" element={<VoiceAssistant />} />
+            <Route path="/how-it-works" element={<HowItWorks />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/about-app" element={<AboutThisApp />} />
+            <Route path="/contact" element={<Contact />} />
+            <Route path="/resources" element={<Resources />} />
+            <Route path="/quick-tips" element={<QuickTips />} /> {/* Route for QuickTips */}
+            <Route path="/legal-disclaimer" element={<LegalDisclaimer />} />
+            <Route path="/terms" element={<Terms />} />
+            <Route path="/confirmation" element={<Confirmation />} />
+            <Route path="/lawyer-matching" element={<LawyerMatching />} />
+            <Route path="/lawyer-confirmation" element={<LawyerConfirmation />} />
+            <Route path="/attorney-chat" element={<AttorneyChat />} />
+            <Route path="/investor-guide" element={<InvestorGuide />} />
+            <Route path="/law-firm-guide" element={<LawFirmGuide />} />
+            <Route path="/admin" element={<AdminDashboard />} />
+            <Route path="*" element={<Home />} />
+          </Routes>
+        </div>
+        
+        <Footer />
+        <Toaster />
+      </div>
     </Router>
   );
 }

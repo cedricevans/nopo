@@ -25,7 +25,6 @@ const Header = () => {
     { name: 'Pricing', path: '/pricing', icon: DollarSign },
     { name: 'How It Works', path: '/how-it-works', icon: Info },
     { name: 'Recent Results', path: '/case-results', icon: Shield },
-    // Super admin link (visible to all for now, restrict in future)
   ];
 
   const isActive = (path) => location.pathname === path;

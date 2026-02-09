@@ -236,26 +236,8 @@ const AdminDashboard = () => {
   }, []);
 
   return (
-    <>
-  <div className="w-full border-b border-slate-200 bg-white mt-[20px]">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-14">
-            <div className="flex items-center gap-3">
-              <a href="/" className="text-sm text-slate-700 hover:underline">Return to site</a>
-              <nav className="hidden sm:flex gap-2">
-                <a href="/admin" className="text-sm px-2 py-1 rounded-md bg-slate-50 text-slate-900">Dashboard</a>
-                <a href="/admin-onboard" className="text-sm px-2 py-1 rounded-md text-slate-700 hover:bg-slate-50">Onboarding</a>
-              </nav>
-            </div>
-            <div>
-              <button className="rounded-md border border-slate-200 bg-white px-3 py-1 text-sm">Refresh</button>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <main className="min-h-screen bg-[#F5F8FC] text-slate-900 pb-16">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <main className="min-h-screen bg-[#F5F8FC] text-slate-900 pt-36 pb-16">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {alertMessage && (
           <div className="mb-5 flex flex-wrap items-center justify-between gap-2 rounded-2xl border border-[#4EA1FF]/40 bg-white px-4 py-3 text-sm text-slate-700 shadow-sm">
             <span>{alertMessage}</span>
@@ -545,7 +527,6 @@ const AdminDashboard = () => {
         </div>
       </div>
     </main>
-    </>
   );
 };
 
